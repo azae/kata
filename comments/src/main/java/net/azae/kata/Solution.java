@@ -1,14 +1,16 @@
 package net.azae.kata;
 
+import static java.util.Calendar.DAY_OF_MONTH;
+import static java.util.Calendar.MONTH;
+
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import static java.util.Calendar.DAY_OF_MONTH;
-import static java.util.Calendar.MONTH;
 
 class Solution {
-    private final static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM");
+    private final static DateFormat formatter = new SimpleDateFormat("dd/MM");
     
     public static int encryptCrc(int crc, String date) throws ParseException {
         int salt = getSalt(formatter.parse(date));

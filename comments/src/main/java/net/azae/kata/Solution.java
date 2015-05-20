@@ -1,16 +1,25 @@
 package net.azae.kata;
 
-class Solution {
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
-    public static int encryptCrc(int crc, String date) {
+class Solution {
+	private static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM");
+	private static Calendar calendar = Calendar.getInstance(); 
+	
+    public static int encryptCrc(int crc, String inputDate) throws ParseException {
+        Date date = formatter.parse(inputDate);
         int key = getMagicNumber(date);
         return join(encrypt(mostSignificantBit(crc), key), encrypt(leastSignificantBit(crc), key));
     }
 
-    private static int getMagicNumber(String date) {
-        return ((Integer.valueOf(date.substring(0, 2)) + Integer.valueOf(date.substring(3, 5))) % 8);
+    private static int getMagicNumber(Date date) {
+    	calendar.setTime(date);
+        return ((calendar.get(Calendar.DAY_OF_MONTH) + calendar.get(Calendar.MONTH)) % 8);
     }
-
+    
     private static int leastSignificantBit(int value) {
         return value & 0xFF;
     }

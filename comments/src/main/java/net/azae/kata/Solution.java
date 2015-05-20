@@ -12,18 +12,18 @@ import java.util.Date;
 class Solution {
     private final static DateFormat formatter = new SimpleDateFormat("dd/MM");
     
-    public static int encryptCrc(int crc, String date) throws ParseException {
-        int salt = getSalt(formatter.parse(date));
+    public static int encryptCrc(final int crc, final String date) throws ParseException {
+    	final int salt = getSalt(formatter.parse(date));
         return join(encrypt(mostSignificantBit(crc), salt), encrypt(leastSignificantBit(crc), salt));
     }
 
-    private static int getSalt(Date date) {
-    	Calendar calendar = Calendar.getInstance();
+    private static int getSalt(final Date date) {
+    	final Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return ((calendar.get(DAY_OF_MONTH) + calendar.get(MONTH) +1 ) % 8);
     }
 
-    private static int leastSignificantBit(int value) {
+    private static int leastSignificantBit(final int value) {
         return value & 0xFF;
     }
 
@@ -31,23 +31,24 @@ class Solution {
         return (value >> 8) & 0xFF;
     }
 
-    private static int join(int msb, int lsb) {
+    private static int join(final int msb, final int lsb) {
         return msb << 8 | lsb;
     }
 
-    private static int encrypt(int value, int salt) {
-        value = rotateRight(value, salt);
-        return ((value << 1) ^ value) & 0xFF;
+    private static int encrypt(final int value, final int salt) {
+        final int rotated = rotateRight(value, salt);
+        return ((rotated << 1) ^ rotated) & 0xFF;
     }
 
-    private static int rotateRight(int value, int count) {
+    private static int rotateRight(final int value, final int count) {
+    	int rotated = value;
         for (int i = 0; i < count; ++i) {
-            if ((value & 0x01) != 0)
-                value = (0x80 | (value >> 1));
+            if ((rotated & 0x01) != 0)
+            	rotated = (0x80 | (rotated >> 1));
             else
-                value = (value >> 1);
+            	rotated = (rotated >> 1);
         }
-        return value;
+        return rotated;
     }
 
 }

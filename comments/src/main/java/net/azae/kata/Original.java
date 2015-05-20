@@ -1,3 +1,5 @@
+package net.azae.kata;
+
 class Original {
     /*
      * date: should be dd/mm

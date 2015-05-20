@@ -1,3 +1,5 @@
+package net.azae.kata;
+
 class Solution {
 
     public static int encryptCrc(int crc, String date) {

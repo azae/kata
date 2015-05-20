@@ -11,11 +11,11 @@ class Solution {
     private final static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM");
     
     public static int encryptCrc(int crc, String date) throws ParseException {
-        int key = getMagicNumber(formatter.parse(date));
-        return join(encrypt(mostSignificantBit(crc), key), encrypt(leastSignificantBit(crc), key));
+        int salt = getSalt(formatter.parse(date));
+        return join(encrypt(mostSignificantBit(crc), salt), encrypt(leastSignificantBit(crc), salt));
     }
 
-    private static int getMagicNumber(Date date) {
+    private static int getSalt(Date date) {
     	Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return ((calendar.get(DAY_OF_MONTH) + calendar.get(MONTH)) % 8);
@@ -33,8 +33,8 @@ class Solution {
         return msb << 8 | lsb;
     }
 
-    private static int encrypt(int value, int count) {
-        value = rotateRight(value, count);
+    private static int encrypt(int value, int salt) {
+        value = rotateRight(value, salt);
         return ((value << 1) ^ value) & 0xFF;
     }
 

@@ -25,7 +25,7 @@ class Solution {
 
     private static int encrypt(int value, int count) {
         value = rotateRight(value, count);
-        return (value ^ (value << 1)) & 0xFF;
+        return ((value << 1) ^ value) & 0xFF;
     }
 
     private static int rotateRight(int value, int count) {

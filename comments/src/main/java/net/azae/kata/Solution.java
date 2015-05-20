@@ -20,7 +20,7 @@ class Solution {
     private static int getSalt(Date date) {
     	Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        return ((calendar.get(DAY_OF_MONTH) + calendar.get(MONTH)) % 8);
+        return ((calendar.get(DAY_OF_MONTH) + calendar.get(MONTH) +1 ) % 8);
     }
 
     private static int leastSignificantBit(int value) {

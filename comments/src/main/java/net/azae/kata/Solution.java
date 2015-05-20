@@ -9,9 +9,8 @@ class Solution {
 	private static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM");
 	private static Calendar calendar = Calendar.getInstance(); 
 	
-    public static int encryptCrc(int crc, String inputDate) throws ParseException {
-        Date date = formatter.parse(inputDate);
-        int key = getMagicNumber(date);
+    public static int encryptCrc(int crc, String date) throws ParseException {
+        int key = getMagicNumber(formatter.parse(date));
         return join(encrypt(mostSignificantBit(crc), key), encrypt(leastSignificantBit(crc), key));
     }
 

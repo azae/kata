@@ -6,19 +6,19 @@ import java.util.Calendar;
 import java.util.Date;
 
 class Solution {
-	private static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM");
-	private static Calendar calendar = Calendar.getInstance(); 
-	
+    private final static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM");
+    private final static Calendar calendar = Calendar.getInstance();
+
     public static int encryptCrc(int crc, String date) throws ParseException {
         int key = getMagicNumber(formatter.parse(date));
         return join(encrypt(mostSignificantBit(crc), key), encrypt(leastSignificantBit(crc), key));
     }
 
     private static int getMagicNumber(Date date) {
-    	calendar.setTime(date);
+        calendar.setTime(date);
         return ((calendar.get(Calendar.DAY_OF_MONTH) + calendar.get(Calendar.MONTH)) % 8);
     }
-    
+
     private static int leastSignificantBit(int value) {
         return value & 0xFF;
     }

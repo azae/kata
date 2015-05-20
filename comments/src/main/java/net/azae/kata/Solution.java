@@ -4,18 +4,18 @@ class Solution {
 
     public static int encryptCrc(int crc, String date) {
         int key = getMagicNumber(date);
-        return join(encrypt(msb(crc), key), encrypt(lsb(crc), key));
+        return join(encrypt(mostSignificantBit(crc), key), encrypt(leastSignificantBit(crc), key));
     }
 
     private static int getMagicNumber(String date) {
         return ((Integer.valueOf(date.substring(0, 2)) + Integer.valueOf(date.substring(3, 5))) % 8);
     }
 
-    private static int lsb(int value) {
+    private static int leastSignificantBit(int value) {
         return value & 0xFF;
     }
 
-    private static int msb(int value) {
+    private static int mostSignificantBit(int value) {
         return (value >> 8) & 0xFF;
     }
 

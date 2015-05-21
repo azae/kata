@@ -5,7 +5,7 @@ import java.text.ParseException;
 class Main {
 
     public static void main(String[] args) throws ParseException {
-    	check(345, "12/05");
+        check(345, "12/05");
     	check(278, "01/09");
     }
 

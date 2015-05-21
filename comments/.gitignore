@@ -1,5 +1,7 @@
 *~
-.settings
-target/
 .classpath
+.idea/
 .project
+.settings
+out/
+target/

@@ -10,6 +10,11 @@ class Data {
         this.salary = salary;
     }
 
+    Data(double age, double salary) {
+        this.age = (int) Math.round(age);
+        this.salary = (int) Math.round(salary);
+    }
+    
     public int getAge() {
         return age;
     }

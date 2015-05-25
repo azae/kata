@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class Convert {
+public class ConvertOrg {
 	public static final char[] NUM_0_9 = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 	public static String[] TEXT_0_9 = new String[] { "zéro", "un", "deux", "trois", "quatre", "cinq", "six", "sept", "huit", "neuf" };
 	public static String[] TEXT_10_19 = new String[] { "dix", "onze", "douze", "treize", "quatorze", "quinze", "seize", "dix sept", "dix huit",	"dix neuf" };
@@ -27,48 +27,12 @@ public class Convert {
 			loadNum2text();
 		if (!estNum(input))
 			return null;
-		StringBuilder revertInput = new StringBuilder(input).reverse();
+		StringBuilder sb = new StringBuilder(input).reverse();
 		String retour = "";
-		int length = revertInput.length();
-		for (int i = 0; i < getPowerThousandMax(length); i++) {
-			if (!isCurrentThousandIsNull(revertInput, i)) {
-				if (isUnitThousand(revertInput, i)) {
-					retour = TEXT_1000[i] + " " + retour;
-				} else {
-					retour = trois2text(extractThousand(revertInput, i))
-							+ ((i == 0) ? "" : " ") + TEXT_1000[i] + " "
-							+ retour;
-
-				}
-			}
+		for (int i = 0; i < (sb.length() - 1) / 3 + 1; i++) {
+			retour = (trois2text(new StringBuilder(sb.substring(i * 3, ((i * 3 + 3 > sb.length()) ? sb.length() : i * 3 + 3))).reverse().toString()).equals("zéro") && (sb.length() - 1) / 3 + 1 > 1) ? retour : (trois2text(new StringBuilder(sb.substring(i * 3, (i * 3 + 3 > sb.length()) ? sb.length() : i * 3 + 3)).reverse().toString()).equals("un") && i != 0) ? TEXT_1000[i] + " "	+ retour : trois2text(new StringBuilder(sb.substring(i * 3,	(i * 3 + 3 > sb.length()) ? sb.length()	: i * 3 + 3)).reverse().toString())	+ ((i == 0) ? "" : " ")	+ TEXT_1000[i] + " " + retour;
 		}
 		return retour.substring(0, retour.length() - 1);
-	}
-
-	private static boolean isUnitThousand(StringBuilder revertInput, int i) {
-		return trois2text( extractThousand(revertInput, i)).equals("un") && i != 0;
-	}
-
-	private static boolean isCurrentThousandIsNull(StringBuilder revertInput, int i) {
-		int length = revertInput.length();
-		return trois2text( extractThousand(revertInput, i)).equals("zéro") && getPowerThousandMax(length) > 1;
-	}
-
-	private static int getPowerThousandMax(int length) {
-		return (length - 1) / 3 + 1;
-	}
-
-	private static String extractThousand(StringBuilder revertInput, int i) {
-		return new StringBuilder(getThousand(revertInput, i)).reverse().toString();
-	}
-
-	private static String getThousand(StringBuilder revertInput, int i) {
-		int length = revertInput.length();
-		return revertInput.substring(i * 3, getThousandLength(length, i));
-	}
-
-	private static int getThousandLength(int length, int index) {
-		return (index * 3 + 3 > length) ? length : index * 3 + 3;
 	}
 
 	private static boolean estNum(String input) {

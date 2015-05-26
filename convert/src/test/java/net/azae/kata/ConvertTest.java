@@ -1012,6 +1012,7 @@ public class ConvertTest {
 		assertEquals("mille un", ConvertRefactored.num2text("1001"));
 		assertEquals("mille deux", ConvertRefactored.num2text("1002"));
 		assertEquals("mille trois", ConvertRefactored.num2text("1003"));
+		assertEquals("trois mille trois", ConvertRefactored.num2text("3003"));
 		assertEquals("dix mille soixante dix huit", ConvertRefactored.num2text("10078"));
 		assertEquals("deux million sept mille huit", ConvertRefactored.num2text("2007008"));
 		assertEquals("million sept mille huit", ConvertRefactored.num2text("1007008"));

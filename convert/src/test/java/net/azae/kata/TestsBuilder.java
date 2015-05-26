@@ -16,6 +16,6 @@ public class TestsBuilder {
 	}
 
 	private static void printTest(String expected, String input) {
-		System.out.println("assertEquals(\"" + expected	+ "\", Convert.num2text(\"" + input + "\"));");
+		System.out.println("assertEquals(\"" + expected	+ "\", ConvertRefactored.num2text(\"" + input + "\"));");
 	}
 }

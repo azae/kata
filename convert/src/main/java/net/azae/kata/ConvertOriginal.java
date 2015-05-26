@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class ConvertOrg {
+public class ConvertOriginal {
 	public static final char[] NUM_0_9 = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 	public static String[] TEXT_0_9 = new String[] { "zéro", "un", "deux", "trois", "quatre", "cinq", "six", "sept", "huit", "neuf" };
 	public static String[] TEXT_10_19 = new String[] { "dix", "onze", "douze", "treize", "quatorze", "quinze", "seize", "dix sept", "dix huit",	"dix neuf" };
@@ -27,6 +27,7 @@ public class ConvertOrg {
 			loadNum2text();
 		if (!estNum(input))
 			return null;
+		input.split("(?<=\\G...)");
 		StringBuilder sb = new StringBuilder(input).reverse();
 		String retour = "";
 		for (int i = 0; i < (sb.length() - 1) / 3 + 1; i++) {

@@ -19,11 +19,11 @@ public class ConvertRefactored {
         final List<String> byThreeDigits = splitByThreeDigits(input);
         final StringBuilder result = new StringBuilder();
         for (int block = byThreeDigits.size() - 1; block >= 0; block--) {
-            final String renderThreeDigits = renderThreeDigits(byThreeDigits.get(block));
-            if (!"zéro".equals(renderThreeDigits) || byThreeDigits.size() == 1) {
+            final String textual = renderThreeDigits(byThreeDigits.get(block));
+            if (!"zéro".equals(textual) || byThreeDigits.size() == 1) {
                 result.append(" ");
-                if (!"un".equals(renderThreeDigits) || block == 0) {
-                    result.append(renderThreeDigits);
+                if (!"un".equals(textual) || block == 0) {
+                    result.append(textual);
                     if (block != 0) result.append(" ");
                 }
                 result.append(MAGNITUDE_TO_TEXT[block]);

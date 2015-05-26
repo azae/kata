@@ -1,6 +1,8 @@
 package net.azae.kata;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,58 +27,48 @@ public class Convert {
 	public static String num2text(String input) {
 		if (num2text09 == null)
 			loadNum2text();
-		if (!estNum(input))
+		if (!isNumeric(input))
 			return null;
-		StringBuilder revertInput = new StringBuilder(input).reverse();
 		String retour = "";
-		int length = revertInput.length();
-		for (int i = 0; i < getPowerThousandMax(length); i++) {
-			if (!isCurrentThousandIsNull(revertInput, i)) {
-				if (isUnitThousand(revertInput, i)) {
-					retour = TEXT_1000[i] + " " + retour;
-				} else {
-					retour = trois2text(extractThousand(revertInput, i))
-							+ ((i == 0) ? "" : " ") + TEXT_1000[i] + " "
-							+ retour;
-
-				}
-			}
+		List<String> blocks = split(input);
+		for (int blockNumber = 0; blockNumber < blocks.size(); blockNumber++) {
+			retour = processBlock( blocks.get(blockNumber), blockNumber, blocks.size()) + retour;
 		}
 		return retour.substring(0, retour.length() - 1);
 	}
 
-	private static boolean isUnitThousand(StringBuilder revertInput, int i) {
-		return trois2text( extractThousand(revertInput, i)).equals("un") && i != 0;
+	private static String processBlock( String block, int i, int total) {
+		 if (trois2text(block).equals("zéro") && total > 1) 
+			 return "";
+		 else 
+			 return concatThousandName(trois2text(block), i);
 	}
 
-	private static boolean isCurrentThousandIsNull(StringBuilder revertInput, int i) {
-		int length = revertInput.length();
-		return trois2text( extractThousand(revertInput, i)).equals("zéro") && getPowerThousandMax(length) > 1;
+	private static String concatThousandName(String blockText, int i) {
+		String prefix = blockText + " ";
+		if (blockText.equals("un") && i > 0 ) {
+			prefix = "";
+		}
+		String suffix = "";
+		if (i > 0) 
+			suffix = " ";
+		return prefix + TEXT_1000[i] + suffix;
+	
 	}
-
-	private static int getPowerThousandMax(int length) {
-		return (length - 1) / 3 + 1;
+	
+	private static List<String> split(String input) {
+		StringBuilder revertedInput = new StringBuilder(input).reverse();
+		List<String> output = new ArrayList<>();
+		for (int i = 0; i < (revertedInput.length() - 1) / 3 + 1; i++) {
+			int end = Math.min(i*3 +3, revertedInput.length());
+			String orderedBloc = new StringBuilder(revertedInput.substring(i*3, end)).reverse().toString();
+			output.add(orderedBloc);
+		}
+		return output;
 	}
-
-	private static String extractThousand(StringBuilder revertInput, int i) {
-		return new StringBuilder(getThousand(revertInput, i)).reverse().toString();
-	}
-
-	private static String getThousand(StringBuilder revertInput, int i) {
-		int length = revertInput.length();
-		return revertInput.substring(i * 3, getThousandLength(length, i));
-	}
-
-	private static int getThousandLength(int length, int index) {
-		return (index * 3 + 3 > length) ? length : index * 3 + 3;
-	}
-
-	private static boolean estNum(String input) {
-		Set<Character> keySet = num2text09.keySet();
-		for (int i = 0; i < input.length(); i++)
-			if (!keySet.contains(input.charAt(i)))
-				return false;
-		return true;
+	
+	private static boolean isNumeric(String input) {
+		return input.matches("^[0-9]+$");
 	}
 
 	private static String trois2text(String input) {

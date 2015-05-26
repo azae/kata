@@ -60,4 +60,17 @@ public class WrapBench {
         long elapse = (endTime - startTime) / 1000 ;
         System.out.println("wrapLoop : " + elapse);
 	}
+	
+	@Test 
+	public void test_wrapLoop2() {
+
+		long startTime = System.nanoTime();
+        WrapLoop2 wrap = new WrapLoop2();
+        for (String line : allLines) {
+			wrap.wrapLine(line, 80);
+		}
+        long endTime = System.nanoTime();
+        long elapse = (endTime - startTime) / 1000 ;
+        System.out.println("wrapLoop2 : " + elapse);
+	}
 }

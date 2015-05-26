@@ -7,6 +7,8 @@ import org.junit.Test;
 public class ConvertTest {
 	@Test 
 	public void test_non_reg() {
+		assertEquals(null, ConvertRefactored.num2text("1.2"));
+		assertEquals(null, ConvertRefactored.num2text("12a"));
 		assertEquals("un", ConvertRefactored.num2text("1"));
 		assertEquals("deux", ConvertRefactored.num2text("2"));
 		assertEquals("trois", ConvertRefactored.num2text("3"));

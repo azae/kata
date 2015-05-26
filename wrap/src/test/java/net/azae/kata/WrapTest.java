@@ -24,7 +24,7 @@ public class WrapTest {
 
 	//private final WrapRecursive wrap = new WrapRecursive();
 	//private final WrapTailRecursive wrap = new WrapTailRecursive();
-	private final WrapLoop wrap = new WrapLoop();
+	private final WrapLoop2 wrap = new WrapLoop2();
 	
 	@Test
 	public void test_wrap_short_line() {

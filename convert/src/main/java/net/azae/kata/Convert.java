@@ -27,7 +27,6 @@ public class Convert {
 			loadNum2text();
 		if (!estNum(input))
 			return null;
-		input.split("(?<=\\G...)");
 		StringBuilder sb = new StringBuilder(input).reverse();
 		String retour = "";
 		for (int i = 0; i < (sb.length() - 1) / 3 + 1; i++) {

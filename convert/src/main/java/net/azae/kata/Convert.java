@@ -38,7 +38,7 @@ public class Convert {
 	}
 
 	private static String processBlock( String block, int i, int total) {
-		 if (trois2text(block).equals("zéro") && total > 1) 
+		 if ("zéro".equals(trois2text(block)) && total > 1)
 			 return "";
 		 else 
 			 return concatThousandName(trois2text(block), i);

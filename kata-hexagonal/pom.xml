@@ -9,9 +9,9 @@
   </parent>
 
   <groupId>net.azae.kata</groupId>
-  <artifactId>convert</artifactId>
+  <artifactId>kata-hexagonal</artifactId>
   <version>1.0</version>
   <packaging>jar</packaging>
-  <name>Convert</name>
+  <name>Kata Hexagonal</name>
 
 </project>

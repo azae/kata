@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class Convert {
+
 	public static final char[] NUM_0_9 = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 	public static String[] TEXT_0_9 = new String[] { "zéro", "un", "deux", "trois", "quatre", "cinq", "six", "sept", "huit", "neuf" };
 	public static String[] TEXT_10_19 = new String[] { "dix", "onze", "douze", "treize", "quatorze", "quinze", "seize", "dix sept", "dix huit",	"dix neuf" };
 	public static String[] TEXT_10_90 = new String[] { "", "dix", "vingt", "trente", "quarante", "cinquante", "soixante", "soixante", "quatre vingt", "quatre vingt" };
 	public static String[] TEXT_10_99 = new String[] { "", " et un", " deux", " trois", " quatre", " cinq", " six", " sept", " huit", " neuf" };
-	public static String[] TEXT_1000 = new String[] { "", "mille", "million", "milliard", "billion", "billiar", "trillion", "trilliard", "quadrillion", "quadrilliard" };
+	public static String[] MAGNITUDE = new String[] { "", "mille", "million", "milliard", "billion", "billiar", "trillion", "trilliard", "quadrillion", "quadrilliard" };
 	private static Map<Character, String> num2text09;
 	private static Map<Character, String> num2text1019;
 	private static Map<Character, String> num2text1090;
@@ -20,42 +20,41 @@ public class Convert {
 
 	/**
 	 * Returns a text version of a number passed as input.
-	 * 
+	 *
 	 * @param input The number to convert to text.
 	 * @return Text version of the number.
 	 */
 	public static String num2text(String input) {
 		if (num2text09 == null)
 			loadNum2text();
-		if (!isNumeric(input))
-			return null;
+		if (!isNumeric(input)) return null;
 		String retour = "";
 		List<String> blocks = split(input);
 		for (int blockNumber = 0; blockNumber < blocks.size(); blockNumber++) {
 			retour = processBlock( blocks.get(blockNumber), blockNumber, blocks.size()) + retour;
 		}
-		return retour.substring(0, retour.length() - 1);
+		return retour.trim();
 	}
 
 	private static String processBlock( String block, int i, int total) {
-		 if ("zéro".equals(trois2text(block)) && total > 1)
+		 if (renderBlock(block).equals("zéro") && total > 1)
 			 return "";
-		 else 
-			 return concatThousandName(trois2text(block), i);
+		 else
+			 return concatMagnitudeName(renderBlock(block), i);
 	}
 
-	private static String concatThousandName(String blockText, int i) {
+	private static String concatMagnitudeName(String blockText, int i) {
 		String prefix = blockText + " ";
 		if (blockText.equals("un") && i > 0 ) {
 			prefix = "";
 		}
 		String suffix = "";
-		if (i > 0) 
+		if (i > 0)
 			suffix = " ";
-		return prefix + TEXT_1000[i] + suffix;
-	
+		return prefix + MAGNITUDE[i] + suffix;
+
 	}
-	
+
 	private static List<String> split(String input) {
 		StringBuilder revertedInput = new StringBuilder(input).reverse();
 		List<String> output = new ArrayList<>();
@@ -66,29 +65,37 @@ public class Convert {
 		}
 		return output;
 	}
-	
+
 	private static boolean isNumeric(String input) {
 		return input.matches("^[0-9]+$");
 	}
 
-	private static String trois2text(String input) {
+	private static String renderBlock(String input) {
 		if (input.length() == 1)
 			return un2text(input);
 		if (input.length() == 2) {
-			return deux2text(input);
+			return renderDecade(input);
 		}
 		if (input.length() == 3) {
+			String decade = renderDecade(input.substring(1, 3));
+			String prefix = "";
 			if (input.charAt(0) == '0')
-				return trois2text(input.substring(1, 3));
-			else if (input.charAt(0) == '1')
-				return "cent" + ((trois2text(input.substring(1, 3)).equals("zéro")) ? "" : " " + trois2text(input.substring(1, 3)));
-			else
-				return num2text09.get(input.charAt(0)) + " cent" + ((trois2text(input.substring(1, 3)).equals("zéro")) ? ""	: " " + trois2text(input.substring(1, 3)));
+				return decade;
+			else if (input.charAt(0) == '1') {
+				prefix = "cent";
+			} else {
+				prefix = num2text09.get(input.charAt(0)) + " cent";
+			}
+			if (decade.equals("zéro")) {
+				return prefix;
+			} else {
+				return prefix + " " + decade;
+			}
 		}
 		return null;
 	}
 
-	private static String deux2text(String input) {
+	private static String renderDecade(String input) {
 		if (input.length() == 2) {
 			if (input.charAt(0) == '7' || input.charAt(0) == '9')
 				return num2text1090.get(input.charAt(0)) + " " + num2text1019.get(input.charAt(1));

@@ -20,15 +20,18 @@ public class ConvertRefactored {
         final StringBuilder result = new StringBuilder();
         for (int block = byThreeDigits.size() - 1; block >= 0; block--) {
             final String textual = renderThreeDigits(byThreeDigits.get(block));
+
             if ("zéro".equals(textual) && byThreeDigits.size() != 1) {
-                continue;
-            }
-            result.append(" ");
-            if (!"un".equals(textual) || block == 0) {
-                result.append(textual);
+            	continue;
             }
 
-            result.append(" ").append(MAGNITUDE_TO_TEXT[block]);
+			result.append(" ");
+
+			if (!"un".equals(textual) || block == 0) {
+				result.append(textual);
+			}
+
+			result.append(" ").append(MAGNITUDE_TO_TEXT[block]);
         }
         return result.toString().trim();
     }

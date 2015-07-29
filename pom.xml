@@ -12,6 +12,7 @@
     <modules>
         <module>comments</module>
         <module>convert</module>
+        <module>dsl</module>
         <module>kata-hexagonal</module>
         <module>splitloop</module>
         <module>wrap</module>

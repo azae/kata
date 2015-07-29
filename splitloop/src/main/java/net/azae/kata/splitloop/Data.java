@@ -1,4 +1,4 @@
-package net.azae.kata;
+package net.azae.kata.splitloop;
 
 class Data {
     private final int age;

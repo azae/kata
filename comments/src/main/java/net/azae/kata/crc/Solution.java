@@ -1,4 +1,4 @@
-package net.azae.kata;
+package net.azae.kata.crc;
 
 import java.text.DateFormat;
 import java.text.ParseException;

@@ -1,4 +1,4 @@
-package net.azae.kata;
+package net.azae.kata.wrap;
 
 import java.io.IOException;
 import java.net.URI;
@@ -8,6 +8,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+import net.azae.kata.wrap.WrapLoop;
+import net.azae.kata.wrap.WrapLoop2;
+import net.azae.kata.wrap.WrapRecursive;
+import net.azae.kata.wrap.WrapTailRecursive;
 import org.junit.Test;
 
 public class WrapBench {

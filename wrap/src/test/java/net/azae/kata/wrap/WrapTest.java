@@ -1,15 +1,8 @@
-package net.azae.kata;
+package net.azae.kata.wrap;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
-
+import net.azae.kata.wrap.WrapLoop2;
 import org.junit.Test;
 
 
@@ -29,7 +22,7 @@ public class WrapTest {
 	@Test
 	public void test_wrap_short_line() {
 		assertEquals("Il était une fois un gentilhomme qui épousa", wrap.wrapLine("Il était une fois un gentilhomme qui épousa", 80));
-		assertEquals("en secondes noces",wrap.wrapLine("en secondes noces", 80));
+		assertEquals("en secondes noces", wrap.wrapLine("en secondes noces", 80));
 	}
 
 	@Test

@@ -1,4 +1,4 @@
-package net.azae.kata;
+package net.azae.kata.wrap;
 
 public class WrapLoop2 {
 			

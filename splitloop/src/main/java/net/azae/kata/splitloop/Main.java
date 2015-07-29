@@ -1,8 +1,9 @@
 package net.azae.kata.splitloop;
 
-import java.text.ParseException;
-
 class Main {
+
+    private Main() {
+    }
 
     private static Data[] createData() {
         final Data[] data = new Data[10000];
@@ -16,34 +17,34 @@ class Main {
         final long startTime = System.nanoTime();
         double totalAge = 0;
         long totalSalary = 0;
-        for (Data entry: data) {
+        for (final Data entry : data) {
             totalAge += entry.getAge();
             totalSalary += entry.getSalary();
         }
         final long endTime = System.nanoTime();
-        System.out.println("single loop execution time: " + (endTime - startTime) / 1000000.0  );
-        System.out.println(totalAge/data.length);
-        System.out.println(totalSalary/data.length);
+        System.out.println("single loop execution time: " + (endTime - startTime) / 1000000.0);
+        System.out.println(totalAge / data.length);
+        System.out.println(totalSalary / data.length);
     }
 
     private static void splittedLoop(final Data[] data) {
         final long startTime = System.nanoTime();
         double totalAge = 0;
-        for (Data entry: data) {
+        for (final Data entry : data) {
             totalAge += entry.getAge();
         }
 
         long totalSalary = 0;
-        for (Data entry: data) {
+        for (final Data entry : data) {
             totalSalary += entry.getSalary();
         }
         final long endTime = System.nanoTime();
-        System.out.println("splitted loop execution time: " + (endTime - startTime)/ 1000000.0 );
-        System.out.println(totalAge/data.length);
-        System.out.println(totalSalary/data.length);
+        System.out.println("splitted loop execution time: " + (endTime - startTime) / 1000000.0);
+        System.out.println(totalAge / data.length);
+        System.out.println(totalSalary / data.length);
     }
 
-    public static void main(final String[] args) throws ParseException {
+    public static void main(final String[] args) {
         final Data[] data = createData();
         singleLoop(data);
         splittedLoop(data);

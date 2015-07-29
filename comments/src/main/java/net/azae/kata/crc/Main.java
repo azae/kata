@@ -3,6 +3,9 @@ package net.azae.kata.crc;
 import java.text.ParseException;
 
 class Main {
+    private Main() {
+    }
+
     public static void main(final String[] args) throws ParseException {
         check(0x0000, "12/05");
         check(0x0001, "01/08");
@@ -22,9 +25,6 @@ class Main {
 
     private static String hex(final int value) {
         return String.format("0x%4s", Integer.toHexString(value)).replace(" ", "0");
-    }
-
-    private Main() {
     }
 }
 

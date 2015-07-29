@@ -12,6 +12,9 @@ import static java.util.Calendar.MONTH;
 class Solution {
     private static final DateFormat FORMATTER = new SimpleDateFormat("dd/MM");
 
+    private Solution() {
+    }
+
     public static int encryptCrc(final int crc, final String date) throws ParseException {
         final int salt = getSalt(FORMATTER.parse(date));
         return join(encrypt(msb(crc), salt), encrypt(lsb(crc), salt));
@@ -48,8 +51,5 @@ class Solution {
 
     public static String render(final int value) {
         return String.format("%8s", Integer.toBinaryString(value)).replace(" ", "0");
-    }
-
-    private Solution() {
     }
 }

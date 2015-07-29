@@ -14,7 +14,7 @@ class Solution {
 
     public static int encryptCrc(final int crc, final String date) throws ParseException {
         final int salt = getSalt(FORMATTER.parse(date));
-        return join(encrypt(mostSignificantByte(crc), salt), encrypt(leastSignificantByte(crc), salt));
+        return join(encrypt(msb(crc), salt), encrypt(lsb(crc), salt));
     }
 
     private static int getSalt(final Date date) {
@@ -23,11 +23,11 @@ class Solution {
         return (calendar.get(DAY_OF_MONTH) + calendar.get(MONTH) + 1) % 8;
     }
 
-    private static int leastSignificantByte(final int value) {
+    private static int lsb(final int value) {
         return value & 0xFF;
     }
 
-    private static int mostSignificantByte(final int value) {
+    private static int msb(final int value) {
         return value >> 8 & 0xFF;
     }
 
@@ -36,20 +36,8 @@ class Solution {
     }
 
     private static int encrypt(final int value, final int salt) {
-        final int rotated = rotateByteRight(value, salt);
+        final int rotated = rotr(value, salt);
         return (rotated << 1 ^ rotated) & 0xFF;
-    }
-
-    public static int rotateByteRight(final int value, final int count) {
-        int rotated = value;
-        for (int i = 0; i < count; ++i) {
-            if ((rotated & 0x01) == 0) {
-                rotated >>= 1;
-            } else {
-                rotated = 0x80 | rotated >> 1;
-            }
-        }
-        return rotated;
     }
 
     public static int rotr(final int value, final int count) {

@@ -10,15 +10,15 @@ public class Character {
     private final String name;
     private final String race;
     private final Stereotype stereotype;
+    private final List<Attribute> attributes = Lists.newArrayList();
     private final List<Skill> skills = Lists.newArrayList();
-    private final List<Item> items = Lists.newArrayList();
 
-    public Character(final String name, final String race, final Stereotype stereotype, final Iterable<Skill> skills, final Iterable<Item> items) {
+    public Character(final String name, final String race, final Stereotype stereotype, final Iterable<Attribute> attributes, final Iterable<Skill> skills) {
         this.name = name;
         this.race = race;
         this.stereotype = stereotype;
+        Iterables.addAll(this.attributes, attributes);
         Iterables.addAll(this.skills, skills);
-        Iterables.addAll(this.items, items);
     }
 
     public String getName() {
@@ -33,11 +33,11 @@ public class Character {
         return stereotype;
     }
 
-    public List<Skill> getSkills() {
-        return Collections.unmodifiableList(skills);
+    public List<Attribute> getAttributes() {
+        return Collections.unmodifiableList(attributes);
     }
 
-    public List<Item> getItems() {
-        return Collections.unmodifiableList(items);
+    public List<Skill> getSkills() {
+        return Collections.unmodifiableList(skills);
     }
 }

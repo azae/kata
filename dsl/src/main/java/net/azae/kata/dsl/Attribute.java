@@ -1,22 +1,16 @@
 package net.azae.kata.dsl;
 
-public class Skill {
+public class Attribute {
     private final String name;
-    private final String attribute;
     private String value;
 
-    public Skill(final String name, final String attribute, final String value) {
+    public Attribute(final String name, final String value) {
         this.name = name;
-        this.attribute = attribute;
         this.value = value;
     }
 
     public String getName() {
         return name;
-    }
-
-    public String getAttribute() {
-        return attribute;
     }
 
     public String getValue() {

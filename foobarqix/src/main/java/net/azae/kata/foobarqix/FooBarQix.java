@@ -11,8 +11,6 @@ import static java.util.stream.Stream.of;
 
 public final class FooBarQix {
 
-    public static final String[] VALUES = new String[]{"*", "", "", "Foo", "", "Bar", "", "Qix", "", ""};
-
     private FooBarQix() {
     }
 
@@ -20,12 +18,11 @@ public final class FooBarQix {
         return computeWithStream(value);
     }
 
+    public static final String[] VALUES = new String[]{"*", "", "", "Foo", "", "Bar", "", "Qix", "", ""};
 
     public static String computeWithStream(final String value) {
-        final int number = valueOf(value);
-        final Predicate<Integer> isNumberDivisibleBy = n -> number % n == 0;
         final String result = concat(
-                of(3, 5, 7).filter(isNumberDivisibleBy),
+                of(3, 5, 7).filter(isDivisible(valueOf(value))),
                 stream(value.split("")).map(Integer::valueOf)
         ).map(v -> VALUES[v]).collect(joining());
 
@@ -34,6 +31,10 @@ public final class FooBarQix {
         } else {
             return result;
         }
+    }
+
+    private static Predicate<Integer> isDivisible(final int number) {
+        return n -> number % n == 0;
     }
 
     public static String computeV1(final String value) {

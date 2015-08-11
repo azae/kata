@@ -17,6 +17,7 @@
         <module>kata-hexagonal</module>
         <module>splitloop</module>
         <module>wrap</module>
+        <module>rpn</module>
     </modules>
 
     <properties>

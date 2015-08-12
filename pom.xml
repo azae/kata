@@ -15,6 +15,7 @@
         <module>conway</module>
         <module>dsl</module>
         <module>foobarqix</module>
+        <module>gameoflife</module>
         <module>kata-hexagonal</module>
         <module>rpn</module>
         <module>splitloop</module>

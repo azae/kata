@@ -12,12 +12,13 @@
     <modules>
         <module>comments</module>
         <module>convert</module>
+        <module>conway</module>
         <module>dsl</module>
         <module>foobarqix</module>
         <module>kata-hexagonal</module>
+        <module>rpn</module>
         <module>splitloop</module>
         <module>wrap</module>
-        <module>rpn</module>
     </modules>
 
     <properties>

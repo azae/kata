@@ -38,17 +38,12 @@ public final class Board {
 
     public int livingNeighborsCount(final int x, final int y) {
         int count = 0;
-        if (isLive(x - 1, y)) {
-            count += 1;
-        }
-        if (isLive(x + 1, y)) {
-            count += 1;
-        }
-        if (isLive(x, y - 1)) {
-            count += 1;
-        }
-        if (isLive(x, y + 1)) {
-            count += 1;
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dy = -1; dy <= 1; dy++) {
+                if ((dx != 0 || dy != 0) && isLive(x + dx, y + dy)) {
+                    count += 1;
+                }
+            }
         }
         return count;
     }
@@ -57,15 +52,17 @@ public final class Board {
     public boolean equals(final Object other) {
         if (this == other) return true;
         if (other == null || getClass() != other.getClass()) return false;
-
-        final Board board = (Board) other;
-
-        return data.equals(board.data);
+        return data.equals(((Board) other).data);
 
     }
 
     @Override
     public int hashCode() {
         return data.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Board{data='" + data + "'}";
     }
 }

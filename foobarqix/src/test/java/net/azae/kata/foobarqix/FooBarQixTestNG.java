@@ -29,7 +29,6 @@ public class FooBarQixTestNG {
         assertEquals(expected, result.toArray(new Integer[result.size()]));
     }
 
-
     @DataProvider(name = "digits")
     public static Object[][] digits() {
         return new Object[][]{

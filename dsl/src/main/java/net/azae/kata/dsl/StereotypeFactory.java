@@ -1,10 +1,10 @@
 package net.azae.kata.dsl;
 
 import com.google.common.collect.Iterables;
-import net.azae.kata.util.Closure;
 import net.azae.kata.util.ClosureUtils;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static java.util.Arrays.asList;
@@ -22,12 +22,12 @@ public final class StereotypeFactory {
         }
     }
 
-    public static Closure<StereotypeBuilder> skills(final Skill... skills) {
+    public static Consumer<StereotypeBuilder> skills(final Skill... skills) {
         return builder -> Iterables.addAll(builder.skills, asList(skills));
     }
 
     @SafeVarargs
-    public static Stereotype stereotype(final String name, final Closure<StereotypeBuilder>... actions) {
+    public static Stereotype stereotype(final String name, final Consumer<StereotypeBuilder>... actions) {
         return ClosureUtils.processAll(new StereotypeBuilder(), asList(actions)).build(name);
     }
 }

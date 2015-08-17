@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class Convert {
+
 	public static final char[] NUM_0_9 = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 	public static String[] TEXT_0_9 = new String[] { "zéro", "un", "deux", "trois", "quatre", "cinq", "six", "sept", "huit", "neuf" };
 	public static String[] TEXT_10_19 = new String[] { "dix", "onze", "douze", "treize", "quatorze", "quinze", "seize", "dix sept", "dix huit",	"dix neuf" };
@@ -35,15 +36,41 @@ public class Convert {
 		return retour.substring(0, retour.length() - 1);
 	}
 
-	private static boolean estNum(String input) {
-		Set<Character> keySet = num2text09.keySet();
-		for (int i = 0; i < input.length(); i++)
-			if (!keySet.contains(input.charAt(i)))
-				return false;
-		return true;
+	private static String processBlock( String block, int i, int total) {
+		 if (renderBlock(block).equals("zéro") && total > 1)
+			 return "";
+		 else
+			 return concatMagnitudeName(renderBlock(block), i);
 	}
 
-	private static String trois2text(String input) {
+	private static String concatMagnitudeName(String blockText, int i) {
+		String prefix = blockText + " ";
+		if (blockText.equals("un") && i > 0 ) {
+			prefix = "";
+		}
+		String suffix = "";
+		if (i > 0)
+			suffix = " ";
+		return prefix + MAGNITUDE[i] + suffix;
+
+	}
+
+	private static List<String> split(String input) {
+		StringBuilder revertedInput = new StringBuilder(input).reverse();
+		List<String> output = new ArrayList<>();
+		for (int i = 0; i < (revertedInput.length() - 1) / 3 + 1; i++) {
+			int end = Math.min(i*3 +3, revertedInput.length());
+			String orderedBloc = new StringBuilder(revertedInput.substring(i*3, end)).reverse().toString();
+			output.add(orderedBloc);
+		}
+		return output;
+	}
+
+	private static boolean isNumeric(String input) {
+		return input.matches("^[0-9]+$");
+	}
+
+	private static String renderBlock(String input) {
 		if (input.length() == 1)
 			return un2text(input);
 		if (input.length() == 2) {

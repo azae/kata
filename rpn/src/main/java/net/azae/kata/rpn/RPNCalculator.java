@@ -41,8 +41,7 @@ public final class RPNCalculator {
         }
 
         static void process(final String atom, final Stack<Double> stack) {
-            stream(StackActions.values())
-                    .filter(a -> a.pattern.test(atom)).findFirst()
+            stream(StackActions.values()).filter(a -> a.pattern.test(atom)).findFirst()
                     .orElseThrow(() -> new IllegalArgumentException(atom)).operation.accept(atom, stack);
         }
 

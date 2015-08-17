@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.google.common.primitives.Doubles;
 
 import java.util.Collection;
-import java.util.NoSuchElementException;
 import java.util.Stack;
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
@@ -17,18 +16,9 @@ public final class RPNCalculator {
     public static double compute(final String expression) {
         final Stack<Double> stack = new Stack<>();
         for (final String atom : expression.split("\\s+")) {
-            findActionFor(atom).process(atom, stack);
+            StackActions.process(atom, stack);
         }
         return stack.pop();
-    }
-
-    private static StackActions findActionFor(final String atom) {
-        for (final StackActions token : StackActions.values()) {
-            if (token.matches(atom)) {
-                return token;
-            }
-        }
-        throw new NoSuchElementException(atom);
     }
 
     @SuppressWarnings("unused")
@@ -41,21 +31,22 @@ public final class RPNCalculator {
         SQRT("SQRT"::equals, (atom, stack) -> stack.push(sqrt(stack.pop()))),
         MAX("MAX"::equals, (atom, stack) -> stack.push(max(popAll(stack))));
 
-        private final Predicate<String> pattern;
-        private final BiConsumer<String, Stack<Double>> action;
+        final Predicate<String> pattern;
+        final BiConsumer<String, Stack<Double>> operation;
 
-        StackActions(final Predicate<String> pattern, final BiConsumer<String, Stack<Double>> action) {
+        StackActions(final Predicate<String> pattern, final BiConsumer<String, Stack<Double>> operation) {
             this.pattern = pattern;
-            this.action = action;
+            this.operation = operation;
         }
 
-        public boolean matches(final String atom) {
-
-            return pattern.test(atom);
-        }
-
-        public void process(final String atom, final Stack<Double> stack) {
-            action.accept(atom, stack);
+        public static void process(final String atom, final Stack<Double> stack) {
+            for (final StackActions action : StackActions.values()) {
+                if (action.pattern.test(atom)) {
+                    action.operation.accept(atom, stack);
+                    return;
+                }
+            }
+            throw new IllegalArgumentException(atom);
         }
 
         private static double binary(final Stack<Double> stack, final BinaryOperator<Double> function) {

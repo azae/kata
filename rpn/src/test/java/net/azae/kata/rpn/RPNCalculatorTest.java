@@ -53,7 +53,7 @@ public class RPNCalculatorTest {
         assertEquals(12, compute("10 2 3 8 12 MAX"));
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testError() {
         compute("a");
     }

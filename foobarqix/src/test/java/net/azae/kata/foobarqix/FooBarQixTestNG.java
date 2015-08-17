@@ -1,12 +1,9 @@
 package net.azae.kata.foobarqix;
 
-import com.google.common.collect.Lists;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.function.Function;
 
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
@@ -123,50 +120,5 @@ public class FooBarQixTestNG {
 
     static Integer[] values(final Integer... expected) {
         return expected;
-    }
-
-
-    @DataProvider(name = "foobarqix")
-    public static Object[][] foobarqix() {
-        return samples(
-                group("numbers",
-                        sample("1", "1"),
-                        sample("2", "2")),
-                group("divisible by 3",
-                        sample("6", "Foo"),
-                        sample("9", "Foo")),
-                group("contains 3",
-                        sample("13", "Foo"),
-                        sample("433", "FooFoo"))
-        );
-    }
-
-    interface Collector {
-        void collect(Collection<Object[]> collector);
-    }
-
-    private static Object[][] samples(final Collector... collectors) {
-        final List<Object[]> result = Lists.newArrayList();
-        for (final Collector collector : collectors) {
-            collector.collect(result);
-        }
-        return result.toArray(new Object[result.size()][]);
-    }
-
-    private static Collector group(final String description, final Function<String, Object[]>... samples) {
-        return collector -> {
-            for (final Function<String, Object[]> sample : samples) {
-                collector.add(sample.apply(description));
-            }
-        };
-    }
-
-    private static Function<String, Object[]> sample(final String input, final String expected) {
-        return description -> new Object[]{description, input, expected};
-    }
-
-    @Test(dataProvider = "foobarqix")
-    public void testFooBarQix(final String description, final String input, final String expected) {
-        assertEquals(expected, FooBarQix.compute(input));
     }
 }

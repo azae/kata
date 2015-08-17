@@ -10,6 +10,7 @@ import java.util.function.BinaryOperator;
 import java.util.function.Predicate;
 
 import static java.lang.Math.sqrt;
+import static java.util.Arrays.stream;
 import static java.util.Collections.max;
 
 public final class RPNCalculator {
@@ -22,7 +23,7 @@ public final class RPNCalculator {
     }
 
     @SuppressWarnings("unused")
-    enum StackActions {
+    private enum StackActions {
         LITERAL(atom -> Doubles.tryParse(atom) != null, (atom, stack) -> stack.push(Double.valueOf(atom))),
         PLUS("+"::equals, (atom, stack) -> stack.push(binary(stack, (x, y) -> x + y))),
         MINUS("-"::equals, (atom, stack) -> stack.push(binary(stack, (x, y) -> x - y))),
@@ -39,14 +40,10 @@ public final class RPNCalculator {
             this.operation = operation;
         }
 
-        public static void process(final String atom, final Stack<Double> stack) {
-            for (final StackActions action : StackActions.values()) {
-                if (action.pattern.test(atom)) {
-                    action.operation.accept(atom, stack);
-                    return;
-                }
-            }
-            throw new IllegalArgumentException(atom);
+        static void process(final String atom, final Stack<Double> stack) {
+            stream(StackActions.values())
+                    .filter(a -> a.pattern.test(atom)).findFirst()
+                    .orElseThrow(() -> new IllegalArgumentException(atom)).operation.accept(atom, stack);
         }
 
         private static double binary(final Stack<Double> stack, final BinaryOperator<Double> function) {

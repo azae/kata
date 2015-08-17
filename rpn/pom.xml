@@ -8,9 +8,9 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>wrap</artifactId>
+    <artifactId>rpn</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
-    <name>Wrap</name>
+    <name>RPN Calculator</name>
 
 </project>

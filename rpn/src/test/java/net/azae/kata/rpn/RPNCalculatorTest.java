@@ -1,17 +1,19 @@
 package net.azae.kata.rpn;
 
 import org.junit.Test;
+import org.testng.Assert;
 
 import java.util.NoSuchElementException;
 
 import static net.azae.kata.rpn.RPNCalculator.compute;
-import static org.junit.Assert.assertEquals;
 
 public class RPNCalculatorTest {
+    private static final double DELTA = 0.001;
 
     @Test
     public void testConst() {
         assertEquals(1, compute("1"));
+        assertEquals(0.6, compute("0.6"));
     }
 
     @Test
@@ -32,6 +34,7 @@ public class RPNCalculatorTest {
     @Test
     public void testDiv() {
         assertEquals(2, compute("6 3 /"));
+        assertEquals(0.5, compute("1 2 /"));
     }
 
     @Test
@@ -55,4 +58,12 @@ public class RPNCalculatorTest {
         compute("a");
     }
 
+    @Test
+    public void testSpecialsSeparators() {
+        assertEquals(7, compute("1\n4    2\t + +"));
+    }
+
+    private static void assertEquals(final double expected, final double value) {
+        Assert.assertEquals(expected, value, DELTA);
+    }
 }

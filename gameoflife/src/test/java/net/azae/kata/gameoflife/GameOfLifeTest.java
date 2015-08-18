@@ -2,6 +2,8 @@ package net.azae.kata.gameoflife;
 
 import org.junit.Test;
 
+import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.joining;
 import static net.azae.kata.gameoflife.Board.board;
 import static net.azae.kata.gameoflife.GameOfLife.evolve;
 import static org.junit.Assert.assertEquals;
@@ -79,21 +81,18 @@ public class GameOfLifeTest {
                 "  .....  .....  ");
     }
 
-    private static void assertEvolve(final int generations, final String... data) {
-        Board current = extractBoard(data, 0);
+    private static void assertEvolve(final int generations, final String... lines) {
+        Board current = extractBoard(lines, 0);
         for (int i = 1; i <= generations; i++) {
             current = evolve(current);
-            assertEquals(extractBoard(data, i), current);
+            assertEquals(extractBoard(lines, i), current);
         }
     }
 
-    private static Board extractBoard(final String[] data, final int inex) {
-        final int height = data.length;
-        final StringBuilder builder = new StringBuilder();
-        for (String d : data) {
-            builder.append(d.trim().split("\\s+")[inex].trim());
-        }
-        final int width = builder.length() / height;
-        return board(width, height, builder.toString());
+    private static Board extractBoard(final String[] lines, final int inex) {
+        final int height = lines.length;
+        final String data = stream(lines).map(String::trim).map(s -> s.split("\\s+")[inex]).collect(joining());
+        final int width = data.length() / height;
+        return board(width, height, data);
     }
 }

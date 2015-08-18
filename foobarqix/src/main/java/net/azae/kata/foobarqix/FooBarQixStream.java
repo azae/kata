@@ -9,9 +9,9 @@ import static java.util.stream.Collectors.joining;
 import static java.util.stream.Stream.concat;
 import static java.util.stream.Stream.of;
 
-public final class FooBarQix {
+public final class FooBarQixStream {
 
-    private FooBarQix() {
+    private FooBarQixStream() {
     }
 
     public static String compute(final String value) {

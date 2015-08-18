@@ -7,11 +7,11 @@ import java.util.Collection;
 
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
-import static net.azae.kata.foobarqix.FooBarQix.*;
+import static net.azae.kata.foobarqix.FooBarQixStream.*;
 import static org.testng.Assert.assertEquals;
 
 
-public class FooBarQixTest {
+public class FooBarQixStreamTest {
 
     @DataProvider(name = "divisors")
     public static Object[][] divisors() {

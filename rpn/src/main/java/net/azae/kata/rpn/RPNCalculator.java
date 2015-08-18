@@ -22,7 +22,6 @@ public final class RPNCalculator {
         return stack.pop();
     }
 
-    @SuppressWarnings("unused")
     private enum StackActions {
         LITERAL(atom -> Doubles.tryParse(atom) != null, (atom, stack) -> stack.push(Double.valueOf(atom))),
         PLUS("+"::equals, (atom, stack) -> stack.push(binary(stack, (x, y) -> x + y))),

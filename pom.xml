@@ -18,7 +18,6 @@
         <module>gameoflife</module>
         <module>kata-hexagonal</module>
         <module>leapyear</module>
-        <module>randori</module>
         <module>rpn</module>
         <module>splitloop</module>
         <module>wrap</module>

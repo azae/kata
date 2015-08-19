@@ -8,7 +8,7 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>fofizzbuzz</artifactId>
+    <artifactId>fizzbuzz</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
     <name>Kata FizzBuzz</name>

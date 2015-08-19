@@ -97,6 +97,10 @@ Calling add with negatives numbers will throw an exception "Negative not allowed
     "-1,2"    => Negative not allowed : -1
     "2,-4,"
 
+## Others operations
+
+Write a function for multiply with same rules
+
 # Roman Numerals
 
 Write a function to convert from arabic numbers to roman numerals :
@@ -132,3 +136,26 @@ Symbols are placed in order of value, starting with the largest values. When sma
 ## Other direction
 
 Write a function to convert in other direction, from roman numeral to arabic digits.
+
+# RPN Calculator
+
+An RPN calculator computes expressions written in Reverse Polish Notation.
+
+An RPN expression or postfix expression is one of the following :
+* a number X, in wich case the value of the expression is that of X,
+* a sequence of form E1 E2 O where E1 and E2 are RPN expressions and O is an arithmetic operation.
+
+Samples : 
+
+    20 5 /        => 20/5 = 4
+    4 2 + 3 -     => (4+2)-3 = 3
+    3 5 8 * 7 + * => ((5*8)+7)*3 = 141
+  
+Add the SQRT operation :
+
+    9 SQRT => √9 = 3
+
+Add the MAX operation : 
+
+    5 3 4 2 9 1 MAX   => MAX(5, 3, 4, 2, 9, 1) = 9
+    4 5 MAX 1 2 MAX * => MAX(4,5) * MAX(1,2) = 10 

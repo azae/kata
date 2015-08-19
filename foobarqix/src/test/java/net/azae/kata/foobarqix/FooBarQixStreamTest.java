@@ -7,11 +7,11 @@ import java.util.Collection;
 
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
-import static net.azae.kata.foobarqix.FooBarQix.*;
+import static net.azae.kata.foobarqix.FooBarQixStream.*;
 import static org.testng.Assert.assertEquals;
 
 
-public class FooBarQixTestNG {
+public class FooBarQixStreamTest {
 
     @DataProvider(name = "divisors")
     public static Object[][] divisors() {
@@ -48,7 +48,7 @@ public class FooBarQixTestNG {
     @DataProvider(name = "valuesToString")
     public static Object[][] valuesToString() {
         return new Object[][]{
-                {values(0), "*"},
+                {values(0), ""},
                 {values(1), ""},
                 {values(3), "Foo"},
                 {values(5), "Bar"},
@@ -63,58 +63,50 @@ public class FooBarQixTestNG {
     }
 
     @Test
-    public void testReturnsGivenNumberByDefault() {
+    public void testWhenInputMatchesNoRules() {
         assertEquals("1", compute("1"));
         assertEquals("2", compute("2"));
     }
 
     @Test
-    public void testWhenInputIsDivisibleByThree() {
+    public void testWhenInputIsDivisibleBy_3() {
         assertEquals("Foo", compute("6"));
         assertEquals("Foo", compute("9"));
     }
 
     @Test
-    public void testWhenInputContainsThree() {
+    public void testWhenInputContains_3() {
         assertEquals("Foo", compute("13"));
         assertEquals("FooFoo", compute("433"));
     }
 
     @Test
-    public void testWhenInputIsDivisibleByFive() {
-        assertEquals("Bar*", compute("10"));
+    public void testWhenInputIsDivisibleBy_5() {
+        assertEquals("Bar", compute("10"));
     }
 
     @Test
-    public void testWhenInputContainsFive() {
+    public void testWhenInputContains_5() {
         assertEquals("Bar", compute("59"));
         assertEquals("BarBar", compute("1559"));
     }
 
     @Test
-    public void testWhenInputIsDivisibleBySeven() {
+    public void testWhenInputIsDivisibleBy_7() {
         assertEquals("Qix", compute("49"));
     }
 
     @Test
-    public void testWhenInputContainsSeven() {
+    public void testWhenInputContains_7() {
         assertEquals("Qix", compute("47"));
         assertEquals("QixQix", compute("677"));
     }
 
     @Test
-    public void testComplexCases() {
+    public void testWhenInputMatchesMultiplesRules() {
         assertEquals("FooBarBar", compute("15"));
         assertEquals("FooQix", compute("21"));
         assertEquals("FooFooFoo", compute("33"));
-    }
-
-    @Test
-    public void testWhenInputContainsZero() {
-        assertEquals("1*1", compute("101"));
-        assertEquals("FooFoo*Foo", compute("303"));
-        assertEquals("FooBarQix*Bar", compute("105"));
-        assertEquals("FooQix**", compute("10101"));
     }
 
     static Integer[] values(final Integer... expected) {

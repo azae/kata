@@ -30,6 +30,11 @@ public class StringCalculatorTest {
         assertAdd(5.0, "1,2,1,1");
     }
 
+    @Test
+    public void add_should_return_sum_when_input_are_more_than_2_numbers_separated_by_newline () {
+        assertAdd(4.0, "1,2\n1");
+        assertAdd(5.0, "1,2\n1\n1");
+    }
     public void assertAdd(double expected, String actual) {
         assertEquals(expected, add(actual));
     }

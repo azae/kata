@@ -14,6 +14,9 @@ import static java.util.Arrays.stream;
 import static java.util.Collections.max;
 
 public final class RPNCalculator {
+    private RPNCalculator() {
+    }
+
     public static double compute(final String expression) {
         final Stack<Double> stack = new Stack<>();
         for (final String atom : expression.split("\\s+")) {
@@ -55,8 +58,5 @@ public final class RPNCalculator {
             stack.clear();
             return result;
         }
-    }
-
-    private RPNCalculator() {
     }
 }

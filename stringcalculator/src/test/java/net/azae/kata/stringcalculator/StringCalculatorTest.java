@@ -17,6 +17,10 @@ public class StringCalculatorTest {
         assertAdd(1.0, "1");
     }
 
+    @Test
+    public void add_should_return_sum_when_input_are_2_numbers_separated_by_comma () {
+        assertAdd(4.0, "1,3");
+    }
     public void assertAdd(double expected, String actual) {
         assertEquals(expected, add(actual));
     }

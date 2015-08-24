@@ -12,6 +12,11 @@ public class StringCalculatorTest {
         assertAdd(0.0, "");
     }
 
+    @Test
+    public void add_should_return_number_when_input_is_single_number () {
+        assertAdd(1.0, "1");
+    }
+
     public void assertAdd(double expected, String actual) {
         assertEquals(expected, add(actual));
     }

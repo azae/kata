@@ -40,9 +40,12 @@ public class StringCalculatorTest {
     @Test(expectedExceptions = InvalidParameterException.class)
     public void add_should_throw_exception_when_input_is_invalid() {
         assertAdd(3.0, "1,2\n");
+        assertAdd(1.0, "1\n,");
+        assertAdd(4.0, "1,\n3");
     }
 
     public void assertAdd(double expected, String actual) {
         assertEquals(expected, add(actual));
     }
+
 }

@@ -9,12 +9,16 @@ public class StringCalculatorOnePass {
         }
         double sum = 0;
         for (final String operand : operands.split("(,|\n)")) {
-            if (operand.isEmpty()) {
-                throw new InvalidParameterException();
-            }
-            sum += Double.valueOf(operand);
+            sum += toDouble(operand);
         }
         return sum;
+    }
+
+    private static double toDouble(final String value) {
+        if (value.isEmpty()) {
+            throw new InvalidParameterException();
+        }
+        return Double.valueOf(value);
     }
 
     private StringCalculatorOnePass() {

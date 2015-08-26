@@ -2,9 +2,7 @@ package net.azae.kata.stringcalculator;
 
 import org.testng.annotations.Test;
 
-import java.security.InvalidParameterException;
-
-import static net.azae.kata.stringcalculator.StringCalculatorOnePass.add;
+import static net.azae.kata.stringcalculator.StringCalculatorParser.add;
 import static org.testng.Assert.assertEquals;
 
 public class StringCalculatorStreamTest {
@@ -37,22 +35,22 @@ public class StringCalculatorStreamTest {
         assertAdd(5.0, "1,2\n1\n1");
     }
 
-    @Test(expectedExceptions = InvalidParameterException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void add_should_throw_exception_when_input_is_invalid_1() {
         assertAdd(3.0, "1,2\n");
     }
 
-    @Test(expectedExceptions = InvalidParameterException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void add_should_throw_exception_when_input_is_invalid_2() {
         assertAdd(1.0, "1\n,");
     }
 
-    @Test(expectedExceptions = InvalidParameterException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void add_should_throw_exception_when_input_is_invalid_3() {
-        assertAdd(4.0, "1,\n3");
+        assertAdd(4.0, "1\n,3");
     }
 
-    @Test(expectedExceptions = InvalidParameterException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void add_should_throw_exception_when_input_is_invalid_4() {
         assertAdd(4.0, "//s;1s2s1s1");
     }
@@ -66,7 +64,7 @@ public class StringCalculatorStreamTest {
     }
 
     public void assertAdd(double expected, String actual) {
-        assertEquals(expected, add(actual));
+        assertEquals(add(actual), expected);
     }
 
 }

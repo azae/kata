@@ -1,6 +1,5 @@
 package net.azae.kata.stringcalculator;
 
-import java.security.InvalidParameterException;
 import java.util.Arrays;
 
 public class StringCalculatorStream {
@@ -13,8 +12,8 @@ public class StringCalculatorStream {
         else
             numbers = input.replace("\n", ",");
 
-        return Arrays.stream(numbers.split(",")).map((v) -> {
-            if (v.isEmpty()) throw new InvalidParameterException();
+        return Arrays.stream(numbers.split(",", -1)).map((v) -> {
+            if (v.isEmpty()) throw new IllegalArgumentException();
             else return Double.parseDouble(v);
         }).reduce(Double::sum).orElse(null);
     }

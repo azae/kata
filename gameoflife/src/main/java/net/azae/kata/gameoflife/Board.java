@@ -28,7 +28,7 @@ public final class Board {
         if (x < 0 || x >= width || y < 0 || y >= height) {
             return DEAD;
         } else {
-            return data.charAt(width * y + x) == '*' ? LIVE : DEAD;
+            return data.charAt(width * y + x) == '.' ? DEAD: LIVE;
         }
     }
 

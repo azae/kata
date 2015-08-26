@@ -22,6 +22,7 @@
         <module>rpn</module>
         <module>splitloop</module>
         <module>wrap</module>
+        <module>stringcalculator</module>
     </modules>
 
     <properties>

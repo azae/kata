@@ -17,7 +17,7 @@ public class BoardTest {
     @Test
     public void testLivingNeighbors_North() {
         assertEquals(1, livingNeighborsCountOfX(
-                ".*.",
+                ".#.",
                 ".x.",
                 "..."));
     }
@@ -25,7 +25,7 @@ public class BoardTest {
     @Test
     public void testLivingNeighbors_NorthEast() {
         assertEquals(1, livingNeighborsCountOfX(
-                "..*",
+                "..#",
                 ".x.",
                 "..."));
     }
@@ -34,7 +34,7 @@ public class BoardTest {
     public void testLivingNeighbors_East() {
         assertEquals(1, livingNeighborsCountOfX(
                 "...",
-                ".x*",
+                ".x#",
                 "..."));
     }
 
@@ -43,7 +43,7 @@ public class BoardTest {
         assertEquals(1, livingNeighborsCountOfX(
                 "...",
                 ".x.",
-                "..*"));
+                "..#"));
     }
 
     @Test
@@ -51,7 +51,7 @@ public class BoardTest {
         assertEquals(1, livingNeighborsCountOfX(
                 "...",
                 ".x.",
-                ".*."));
+                ".#."));
     }
 
     @Test
@@ -59,21 +59,21 @@ public class BoardTest {
         assertEquals(1, livingNeighborsCountOfX(
                 "...",
                 ".x.",
-                "*.."));
+                "#.."));
     }
 
     @Test
     public void testLivingNeighbors_West() {
         assertEquals(1, livingNeighborsCountOfX(
                 "...",
-                "*x.",
+                "#x.",
                 "..."));
     }
 
     @Test
     public void testLivingNeighbors_NorthWest() {
         assertEquals(1, livingNeighborsCountOfX(
-                "*..",
+                "#..",
                 ".x.",
                 "..."));
     }
@@ -81,67 +81,78 @@ public class BoardTest {
     @Test
     public void exampleWithTwoLivingNeighbors() {
         assertEquals(2, livingNeighborsCountOfX(
-                ".*.",
+                ".#.",
                 ".x.",
-                ".*."));
+                ".#."));
     }
 
     @Test
     public void exampleWithThreeLivingNeighbors() {
         assertEquals(3, livingNeighborsCountOfX(
-                ".**",
+                ".##",
                 ".x.",
-                ".*."));
+                ".#."));
     }
 
     @Test
     public void exampleWithFourLivingNeighbors() {
         assertEquals(4, livingNeighborsCountOfX(
-                ".*.",
-                "*x*",
-                ".*."));
+                ".#.",
+                "#x#",
+                ".#."));
     }
 
     @Test
     public void exampleWithFiveLivingNeighbors() {
         assertEquals(5, livingNeighborsCountOfX(
-                "**.",
-                "*x*",
-                ".*."));
+                "##.",
+                "#x#",
+                ".#."));
     }
 
     @Test
     public void exampleWithSixLivingNeighbors() {
         assertEquals(6, livingNeighborsCountOfX(
-                "***",
-                "*x*",
-                ".*."));
+                "###",
+                "#x#",
+                ".#."));
     }
 
     @Test
     public void exampleWithSevenLivingNeighbors() {
         assertEquals(7, livingNeighborsCountOfX(
-                "***",
-                "*x*",
-                ".**"));
+                "###",
+                "#x#",
+                ".##"));
     }
 
     @Test
     public void exampleWithHeightLivingNeighbors() {
         assertEquals(8, livingNeighborsCountOfX(
-                "***",
-                "*x*",
-                "***"));
+                "###",
+                "#x#",
+                "###"));
     }
 
     @Test
     public void testLivingNeighbors_CountOnlyImmediateNeighbors() {
         assertEquals(0, livingNeighborsCountOfX(
-                "*****",
-                "*...*",
-                "*.x.*",
-                "*...*",
-                "*****"));
+                "#####",
+                "#...#",
+                "#.x.#",
+                "#...#",
+                "#####"));
+    }
+
+    @Test
+    public void testLivingNeighbors_Bug01() {
+        assertEquals(1, livingNeighborsCountOfX(
+                "......",
+                "..##.x",
+                ".#..#.",
+                "..##..",
+                "......",
+                "......"));
     }
 
     private static int livingNeighborsCountOfX(final String... data) {

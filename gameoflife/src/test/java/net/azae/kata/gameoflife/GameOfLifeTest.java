@@ -24,7 +24,7 @@ public class GameOfLifeTest {
     public void testOneCell() {
         assertEvolve(2,
                 "  ....  ....  ....  ",
-                "  .*..  ....  ....  ",
+                "  .#..  ....  ....  ",
                 "  ....  ....  ....  ",
                 "  ....  ....  ....  "
         );
@@ -34,18 +34,18 @@ public class GameOfLifeTest {
     public void testOneGeneration() {
         assertEvolve(2,
                 "  ....  ....  ....  ",
-                "  .**.  .**.  .**.  ",
-                "  .*..  .**.  .**.  ",
+                "  .##.  .##.  .##.  ",
+                "  .#..  .##.  .##.  ",
                 "  ....  ....  ....  "
         );
     }
 
     @Test
-    public void testStableScenario() {
+    public void testSquareScenario() {
         assertEvolve(1,
                 "  ....  ....  ",
-                "  .**.  .**.  ",
-                "  .**.  .**.  ",
+                "  .##.  .##.  ",
+                "  .##.  .##.  ",
                 "  ....  ....  "
         );
     }
@@ -54,9 +54,9 @@ public class GameOfLifeTest {
     public void testBeehiveScenario() {
         assertEvolve(1,
                 "  ......  ......  ",
-                "  ..**..  .*...*",
-                "  .*..*.  .*..*.  ",
-                "  ..**..  *...*.  ",
+                "  ..##..  ..##..  ",
+                "  .#..#.  .#..#.  ",
+                "  ..##..  ..##..  ",
                 "  ......  ......  ");
     }
 
@@ -64,10 +64,10 @@ public class GameOfLifeTest {
     public void testLoafScenario() {
         assertEvolve(1,
                 "  ......  ......  ",
-                "  ..**..  ..*...  ",
-                "  .*..*.  .*.*..  ",
-                "  ..*.*.  .*..*.  ",
-                "  ...*..  ..**..  ",
+                "  ..##..  ..##..  ",
+                "  .#..#.  .#..#.  ",
+                "  ..#.#.  ..#.#.  ",
+                "  ...#..  ...#..  ",
                 "  ......  ......  ");
     }
 
@@ -75,17 +75,44 @@ public class GameOfLifeTest {
     public void testBoatScenario() {
         assertEvolve(1,
                 "  .....  .....  ",
-                "  .**..  .**..  ",
-                "  .*.*.  .*.*.  ",
-                "  ..*..  ..*..  ",
+                "  .##..  .##..  ",
+                "  .#.#.  .#.#.  ",
+                "  ..#..  ..#..  ",
                 "  .....  .....  ");
     }
+
+    @Test
+    public void testGliderScenario() {
+        assertEvolve(4,
+                "  ......  ......  ......  ......  ......  ",
+                "  ..#...  ......  ......  ......  ......  ",
+                "  ...#..  .#.#..  ...#..  ..#...  ...#..  ",
+                "  .###..  ..##..  .#.#..  ...##.  ....#.  ",
+                "  ......  ..#...  ..##..  ..##..  ..###.  ",
+                "  ......  ......  ......  ......  ......  ");
+    }
+
+
+    @Test
+    public void testStarScenario() {
+        assertEvolve(1,
+                "  ....#....  .........  ",
+                "  ....#....  ...###...  ",
+                "  ....#....  .........  ",
+                "  .........  .#.....#.  ",
+                "  ###...###  .#.....#.  ",
+                "  .........  .#.....#.  ",
+                "  ....#....  .........  ",
+                "  ....#....  ...###...  ",
+                "  ....#....  .........  ");
+    }
+
 
     private static void assertEvolve(final int generations, final String... lines) {
         Board current = extractBoard(lines, 0);
         for (int i = 1; i <= generations; i++) {
             current = evolve(current);
-            assertEquals(extractBoard(lines, i), current);
+            assertEquals("generation: " + String.valueOf(i), extractBoard(lines, i), current);
         }
     }
 

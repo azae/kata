@@ -8,10 +8,10 @@ public class GameOfLife {
 
     public static Board evolve(final Board input) {
         final StringBuilder builder = new StringBuilder();
-        for (int x = 0; x < input.width; x++) {
-            for (int y = 0; y < input.height; y++) {
+        for (int y = 0; y < input.height; y++) {
+            for (int x = 0; x < input.width; x++) {
                 if (GamesRules.computeStatus(input.cell(x, y), input.livingNeighborsCount(x, y)) == LIVE) {
-                    builder.append('*');
+                    builder.append('#');
                 } else {
                     builder.append('.');
                 }

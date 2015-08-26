@@ -4,10 +4,10 @@ import org.testng.annotations.Test;
 
 import java.security.InvalidParameterException;
 
-import static net.azae.kata.stringcalculator.StringCalculator.add;
+import static net.azae.kata.stringcalculator.StringCalculatorStream.add;
 import static org.testng.Assert.assertEquals;
 
-public class StringCalculatorTest {
+public class StringCalculatorStreamTest {
     @Test
     public void add_should_return_0_when_input_is_empty() {
         assertAdd(0.0, "");
@@ -42,6 +42,13 @@ public class StringCalculatorTest {
         assertAdd(3.0, "1,2\n");
         assertAdd(1.0, "1\n,");
         assertAdd(4.0, "1,\n3");
+    }
+
+    @Test
+    public void add_should_return_sum_when_delimiter_is_specified() {
+        assertAdd(4.0, "//;\n1;2;1");
+        assertAdd(5.0, "//?\n1?2?1?1");
+        assertAdd(5.0, "//s\n1s2s1s1");
     }
 
     public void assertAdd(double expected, String actual) {

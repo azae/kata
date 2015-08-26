@@ -14,6 +14,8 @@ public class StringCalculatorStreamTest {
     @Test
     public void add_should_return_number_when_input_is_single_number() {
         assertAdd(1.0, "1");
+        assertAdd(0.5, ".5");
+        assertAdd(2.1, "2.1");
     }
 
     @Test
@@ -63,8 +65,7 @@ public class StringCalculatorStreamTest {
         assertAdd(5.0, "//s\n1s2s1s1");
     }
 
-    public void assertAdd(double expected, String actual) {
+    public static void assertAdd(final double expected, final String actual) {
         assertEquals(add(actual), expected);
     }
-
 }

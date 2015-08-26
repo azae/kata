@@ -1,11 +1,16 @@
 package net.azae.kata.stringcalculator;
 
 import java.util.Collection;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.google.common.collect.Sets.newHashSet;
 import static java.lang.Double.parseDouble;
+import static java.util.regex.Pattern.MULTILINE;
+import static java.util.regex.Pattern.compile;
 
 public class StringCalculatorParser {
+    private static final Pattern NUMBER = compile("^[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?", MULTILINE);
     private final String data;
     private int position = 0;
     private Collection<Character> delimiters = newHashSet(',', '\n');
@@ -21,7 +26,6 @@ public class StringCalculatorParser {
     private double add() {
         delimiters();
         if (eos()) return 0;
-
         double sum = number();
         while (!eos()) {
             separator();
@@ -30,21 +34,13 @@ public class StringCalculatorParser {
         return sum;
     }
 
-    private boolean eos() {
-        return position >= data.length();
-    }
-
-    private boolean isSeparator() {
-        return delimiters.contains(data.charAt(position));
-    }
-
     private void delimiters() {
-        if (data.startsWith("//", position)) {
+        if (tail().startsWith("//")) {
             advance(2);
-            delimiters = newHashSet('\n', data.charAt(position));
+            delimiters = newHashSet('\n', current());
             advance(1);
-            if (data.charAt(position) != '\n') {
-                throw new IllegalArgumentException("delimiter error at: " + position);
+            if (current() != '\n') {
+                throw parseError("\\n");
             }
             advance(1);
         }
@@ -54,23 +50,40 @@ public class StringCalculatorParser {
         if (isSeparator()) {
             advance(1);
         } else {
-            throw new IllegalArgumentException("separator error at: " + position);
+            throw parseError("separator");
         }
     }
 
     private double number() {
-        final int start = position;
-        while (!eos() && !isSeparator()) {
-            advance(1);
+        final Matcher matcher = NUMBER.matcher(tail());
+        if (matcher.find(0) && matcher.start() == 0) {
+            advance(matcher.end());
+            return parseDouble(matcher.group());
         }
-        try {
-            return parseDouble(data.substring(start, position));
-        } catch (final NumberFormatException e) {
-            throw new IllegalArgumentException("number error at: " + start, e);
-        }
+        throw parseError("number");
+    }
+
+    private boolean isSeparator() {
+        return delimiters.contains(current());
+    }
+
+    private boolean eos() {
+        return position >= data.length();
+    }
+
+    private char current() {
+        return data.charAt(position);
+    }
+
+    private String tail() {
+        return data.substring(position);
     }
 
     private void advance(final int count) {
         position += count;
+    }
+
+    private RuntimeException parseError(final String token) {
+        return new IllegalArgumentException("Expected " + token + " at #" + position + " got '" + tail() + '\'');
     }
 }

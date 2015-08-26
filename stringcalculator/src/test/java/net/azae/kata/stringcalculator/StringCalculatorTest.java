@@ -4,7 +4,7 @@ import org.testng.annotations.Test;
 
 import java.security.InvalidParameterException;
 
-import static net.azae.kata.stringcalculator.StringCalculator.add;
+import static net.azae.kata.stringcalculator.StringCalculatorOnePass.add;
 import static org.testng.Assert.assertEquals;
 
 public class StringCalculatorTest {
@@ -44,7 +44,7 @@ public class StringCalculatorTest {
         assertAdd(4.0, "1,\n3");
     }
 
-    public void assertAdd(double expected, String actual) {
+    public static void assertAdd(final double expected, final String actual) {
         assertEquals(expected, add(actual));
     }
 

@@ -19,10 +19,11 @@
         <module>gameoflife</module>
         <module>kata-hexagonal</module>
         <module>leapyear</module>
+        <module>movie-rental</module>
         <module>rpn</module>
         <module>splitloop</module>
-        <module>wrap</module>
         <module>stringcalculator</module>
+        <module>wrap</module>
     </modules>
 
     <properties>

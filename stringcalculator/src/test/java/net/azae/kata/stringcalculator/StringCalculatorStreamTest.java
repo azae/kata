@@ -69,4 +69,5 @@ public class StringCalculatorStreamTest {
         assertEquals(expected, add(actual));
     }
 
+
 }

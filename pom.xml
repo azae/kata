@@ -24,6 +24,7 @@
         <module>splitloop</module>
         <module>stringcalculator</module>
         <module>wrap</module>
+        <module>onetwo</module>
     </modules>
 
     <properties>

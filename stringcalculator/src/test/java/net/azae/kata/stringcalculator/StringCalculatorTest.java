@@ -11,7 +11,6 @@ import static org.testng.Assert.assertEquals;
 
 public class StringCalculatorTest {
 
-
     @DataProvider(name = "implementations")
     public static Object[][] implementations() {
         return stream(Implementations.values()).map(v -> new Object[]{v}).collect(toList()).toArray(new Object[][]{});

@@ -15,12 +15,17 @@ public class OneTwo {
 
     private static List<Integer> countOccurences(String input) {
         int countLastNumber = 0;
-        int[] numbers = convertStringNumberToIntArray(input);
+        int[] numbers = convertStringNumberToInteger(input);
         int lastNumber = numbers[0];
         List<Integer> results = new ArrayList<>();
         for (int currentNumber : numbers) {
             if (lastNumber == currentNumber) {
-                countLastNumber++;
+                if (countLastNumber == 9) {
+                    addPairToList(countLastNumber, lastNumber, results);
+                    countLastNumber = 1;
+                } else {
+                    countLastNumber++;
+                }
             } else {
                 addPairToList(countLastNumber, lastNumber, results);
                 lastNumber = currentNumber;
@@ -35,7 +40,7 @@ public class OneTwo {
         return results.stream().map(i -> DIGITS[i]).collect(Collectors.joining(" "));
     }
 
-    private static int[] convertStringNumberToIntArray(String input) {
+    private static int[] convertStringNumberToInteger(String input) {
         return stream(input.split("")).mapToInt(Integer::valueOf).toArray();
     }
 

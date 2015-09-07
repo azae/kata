@@ -13,6 +13,7 @@
         <module>comments</module>
         <module>convert</module>
         <module>conway</module>
+        <module>carpaccio</module>
         <module>dsl</module>
         <module>fizzbuzz</module>
         <module>foobarqix</module>

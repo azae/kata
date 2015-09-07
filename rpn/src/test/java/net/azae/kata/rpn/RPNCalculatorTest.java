@@ -3,7 +3,7 @@ package net.azae.kata.rpn;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import static net.azae.kata.rpn.RPNCalculator.compute;
+import static net.azae.kata.rpn.RPNCalculatorIter.compute;
 
 public class RPNCalculatorTest {
 

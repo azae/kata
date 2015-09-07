@@ -4,9 +4,9 @@ import java.util.Arrays;
 
 public class StringCalculatorStream {
 
-    public static double add(String input) {
+    public static double add(final String input) {
         if (input.isEmpty()) return 0;
-        String numbers;
+        final String numbers;
         if (input.startsWith("//")) {
             numbers = input.substring(4).replace(extractSeparator(input), ",");
             checkFormat(input);
@@ -14,19 +14,22 @@ public class StringCalculatorStream {
             numbers = input.replace("\n", ",");
         }
 
-        return Arrays.stream(numbers.split(",", -1)).map((v) -> {
+        return Arrays.stream(numbers.split(",", -1)).map(v -> {
             if (v.isEmpty()) throw new IllegalArgumentException();
             else return Double.parseDouble(v);
         }).reduce(Double::sum).orElse(null);
     }
 
-    private static String extractSeparator(String input) {
+    private static CharSequence extractSeparator(final String input) {
         return input.substring(2, 3);
     }
 
-    private static void checkFormat(String input) {
-        if (! input.substring(3,4).equals("\n")) {
+    private static void checkFormat(final String input) {
+        if (!"\n".equals(input.substring(3, 4))) {
             throw new IllegalArgumentException();
         }
+    }
+
+    private StringCalculatorStream() {
     }
 }

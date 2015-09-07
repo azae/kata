@@ -1,7 +1,5 @@
 package net.azae.kata.stringcalculator;
 
-import java.util.Arrays;
-
 public class StringCalculatorOnePass {
 
     public static double add(final String operands) {
@@ -30,13 +28,6 @@ public class StringCalculatorOnePass {
             throw new IllegalArgumentException();
         }
         return Double.valueOf(value);
-    }
-
-    public static double addWithStream(final String operands) {
-        if (operands.isEmpty()) {
-            return 0;
-        }
-        return Arrays.stream(split(operands)).mapToDouble(v -> toDouble(v)).sum();
     }
 
     private StringCalculatorOnePass() {

@@ -10,6 +10,7 @@
     <url>http://azae.net</url>
 
     <modules>
+        <module>bowling</module>
         <module>comments</module>
         <module>convert</module>
         <module>conway</module>

@@ -1,11 +1,11 @@
 package net.azae.kata;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Game {
-    private int currentFrameNumber = 0;
-    private List<Frame> frames = new ArrayList<>();
+    private int currentFrameNumber = 1;
+    private Map<Integer, Frame> frames = new HashMap<>();
 
     public Game() {
         initFrames();
@@ -18,15 +18,15 @@ public class Game {
     }
 
     private void initFrames() {
-        while (frames.size() < 10) {
-            frames.add(new Frame());
+        for (int i = 1; i <= 10; i++) {
+            frames.put(i, new Frame());
         }
-        frames.get(9).setLast();
+        frames.get(10).setLast();
     }
 
     public int score() {
         int score = 0;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 1; i <= 10; i++) {
             score += scoreOfFrame(i);
         }
         return score;
@@ -49,7 +49,7 @@ public class Game {
     }
 
     private boolean nextFrameExist(int numFrame) {
-        return frames.size() > numFrame + 1;
+        return frames.containsKey(numFrame + 1);
     }
 
     private int buildStrikeBonusForFrame(int numFrame) {
@@ -58,16 +58,11 @@ public class Game {
         int bonus;
         bonus = nextFrame.getStrikeBonus();
         if (nextFrame.isStrike()) {
-            if (nextFrameExist(numFrame +1)) {
+            if (nextFrameExist(numFrame + 1)) {
                 bonus += frames.get(numFrame + 2).getSpareBonus();
             }
         }
         return bonus;
-    }
-
-    protected void setFrameAndRound(int frame, int round) {
-        this.currentFrameNumber = frame;
-        frames.get(currentFrameNumber).setRound(round);
     }
 
     public String toString() {
@@ -81,18 +76,18 @@ public class Game {
         String ret = "|";
 
         int incrementalScore = 0;
-        for (int i = 0; i < 9; i++) {
+        for (int i = 1; i < 10; i++) {
             incrementalScore += scoreOfFrame(i);
             ret += String.format(" %-3d ", incrementalScore) + "|";
         }
-        incrementalScore += scoreOfFrame(9);
+        incrementalScore += scoreOfFrame(10);
         ret += String.format(" %-5d ", incrementalScore) + "|";
         return ret;
     }
 
     private String getRollsAsString() {
         String ret = "|";
-        for (int i = 0; i < 10; i++) {
+        for (int i = 1; i <= 10; i++) {
             ret += frames.get(i).detail() + "|";
         }
 

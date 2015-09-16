@@ -10,13 +10,13 @@ public class GameTest {
     public void score_for_frame_should_return_pins_knocked_by_first_round() {
         Game game = new Game();
         game.roll(7);
-        Assert.assertEquals(game.scoreOfFrame(0), 7);
+        Assert.assertEquals(game.scoreOfFrame(1), 7);
     }
 
     @Test
     public void score_for_frame_should_return_pins_knocked_by_first_try() {
         Game game = new Game();
-        game.setFrameAndRound(2, 0);
+        playToFrame(game, 2);
         game.roll(7);
         Assert.assertEquals(game.scoreOfFrame(2), 7);
     }
@@ -25,66 +25,72 @@ public class GameTest {
     public void score_for_frame_should_return_sum_of_pins_knocked_by_two_try() {
         Game game = new Game();
         roll(game, 7, 1);
-        Assert.assertEquals(game.scoreOfFrame(0), 8);
+        Assert.assertEquals(game.scoreOfFrame(1), 8);
     }
 
     @Test
     public void score_for_frame_with_spare() {
         Game game = new Game();
         roll(game, 7, 3, 5);
-        Assert.assertEquals(game.scoreOfFrame(0), 15);
+        Assert.assertEquals(game.scoreOfFrame(1), 15);
     }
 
     @Test
     public void score_for_frame_with_strike() {
         Game game = new Game();
         roll(game, 10, 3, 5);
-        Assert.assertEquals(game.scoreOfFrame(0), 18);
+        Assert.assertEquals(game.scoreOfFrame(1), 18);
     }
 
     @Test
     public void score_for_frame_with_3_strikes() {
         Game game = new Game();
         roll(game, 10, 10, 5);
-        Assert.assertEquals(game.scoreOfFrame(0), 25);
+        Assert.assertEquals(game.scoreOfFrame(1), 25);
     }
 
     @Test
     public void after_strike_next_roll_is_for_next_frame() {
         Game game = new Game();
         roll(game, 10, 3);
-        Assert.assertEquals(game.scoreOfFrame(1), 3);
+        Assert.assertEquals(game.scoreOfFrame(2), 3);
     }
 
     @Test
     public void third_roll_is_for_next_frame() {
         Game game = new Game();
         roll(game, 1, 3, 5);
-        Assert.assertEquals(game.scoreOfFrame(1), 5);
+        Assert.assertEquals(game.scoreOfFrame(2), 5);
     }
 
     @Test
     public void score_of_last_frame_with_strike_is_sum_of_3_roll() {
         Game game = new Game();
-        game.setFrameAndRound(9, 0);
+        playToFrame(game, 10);
         roll(game, 10, 3, 6);
-        Assert.assertEquals(game.scoreOfFrame(9), 19);
+        Assert.assertEquals(game.scoreOfFrame(10), 19);
     }
 
     @Test
     public void score_of_last_frame_with_3_strikes_is_30() {
         Game game = new Game();
-        game.setFrameAndRound(9, 0);
+        playToFrame(game, 10);
         roll(game, 10, 10, 10);
-        Assert.assertEquals(game.scoreOfFrame(9), 30);
+        Assert.assertEquals(game.scoreOfFrame(10), 30);
     }
 
     @Test
     public void score_of_frame_8_with_2_strikes() {
         Game game = new Game();
-        game.setFrameAndRound(8, 0);
+        playToFrame(game, 8);
         roll(game, 10, 10, 5);
         Assert.assertEquals(game.scoreOfFrame(8), 25);
+    }
+
+    private void playToFrame(Game game, int frame) {
+        for (int i=2; i< frame * 2 ; i++) {
+            game.roll(0);
+        }
     }
 
     @Test

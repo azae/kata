@@ -14,6 +14,7 @@
         <module>comments</module>
         <module>convert</module>
         <module>conway</module>
+        <module>carpaccio</module>
         <module>dsl</module>
         <module>fizzbuzz</module>
         <module>foobarqix</module>
@@ -25,6 +26,8 @@
         <module>splitloop</module>
         <module>stringcalculator</module>
         <module>wrap</module>
+        <module>onetwo</module>
+        <module>bowling</module>
     </modules>
 
     <properties>

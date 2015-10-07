@@ -8,6 +8,7 @@ import java.util.function.Function;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.fail;
 
 public class StringCalculatorTest {
 
@@ -69,6 +70,22 @@ public class StringCalculatorTest {
 
 
     @Test(dataProvider = "implementations")
+    public void add_should_throw_exception_when_input_contains_negative_numbers(final StringCalculator calculator) {
+        assertEquals(addError(calculator, "-1"), "Negative not allowed: -1.0");
+    }
+
+    private static String addError(final StringCalculator calculator, final String input) {
+        try {
+            calculator.add(input);
+            fail("Exception expected");
+            return "";
+        } catch (final IllegalArgumentException e) {
+            return e.getMessage();
+        }
+    }
+
+
+    @Test(dataProvider = "implementations")
     public void add_should_return_sum_when_delimiter_is_specified(final StringCalculator calculator) {
         assertAdd(calculator, "//;\n1;2;1", 4.0);
         assertAdd(calculator, "//?\n1?2?1?1", 5.0);
@@ -85,8 +102,7 @@ public class StringCalculatorTest {
 
     private enum Implementations implements StringCalculator {
         ONE_PASS(StringCalculatorOnePass::add),
-        PARSER(StringCalculatorParser::add),
-        STREAM(StringCalculatorStream::add);
+        PARSER(StringCalculatorParser::add);
 
         private final Function<String, Double> action;
 

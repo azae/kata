@@ -1,9 +1,12 @@
 package net.azae.kata.stringcalculator;
 
+import com.google.common.base.Joiner;
+
 import java.util.Collection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Sets.newHashSet;
 import static java.lang.Double.parseDouble;
 import static java.util.regex.Pattern.MULTILINE;
@@ -14,6 +17,7 @@ public class StringCalculatorParser {
     private final String data;
     private int position = 0;
     private Collection<Character> delimiters = newHashSet(',', '\n');
+    private final Collection<Double> negatives = newArrayList();
 
     StringCalculatorParser(final String data) {
         this.data = data;
@@ -26,12 +30,16 @@ public class StringCalculatorParser {
     private double add() {
         delimiters();
         if (eos()) return 0;
-        double sum = number();
+        double sum = filterNegatives(number());
         while (!eos()) {
             separator();
-            sum += number();
+            sum += filterNegatives(number());
         }
-        return sum;
+        if (negatives.isEmpty())
+            return sum;
+        else {
+            throw new IllegalArgumentException("Negative not allowed: " + Joiner.on(", ").join(negatives));
+        }
     }
 
     private void delimiters() {
@@ -61,6 +69,13 @@ public class StringCalculatorParser {
             return parseDouble(matcher.group());
         }
         throw parseError("number");
+    }
+
+    private double filterNegatives(final double value) {
+        if (value < 0) {
+            negatives.add(value);
+        }
+        return value;
     }
 
     private boolean isSeparator() {

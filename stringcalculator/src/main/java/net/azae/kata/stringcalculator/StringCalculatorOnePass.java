@@ -1,16 +1,31 @@
 package net.azae.kata.stringcalculator;
 
+import com.google.common.base.Joiner;
+
+import java.util.Collection;
+
+import static com.google.common.collect.Lists.newArrayList;
+
 public class StringCalculatorOnePass {
 
     public static double add(final String operands) {
         if (operands.isEmpty()) {
             return 0;
         }
+        final Collection<Double> negatives = newArrayList();
         double sum = 0;
         for (final String operand : split(operands)) {
-            sum += toDouble(operand);
+            final double value = toDouble(operand);
+            if (value < 0) {
+                negatives.add(value);
+            }
+            sum += value;
         }
-        return sum;
+        if (negatives.isEmpty())
+            return sum;
+        else {
+            throw new IllegalArgumentException("Negative not allowed: " + Joiner.on(", ").join(negatives));
+        }
     }
 
     private static String[] split(final String operands) {

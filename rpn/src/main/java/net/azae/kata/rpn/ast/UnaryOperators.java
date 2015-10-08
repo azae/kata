@@ -7,11 +7,11 @@ public enum UnaryOperators {
     public static String render(final UnaryOperators op) {
         switch (op) {
             case NEG:
-                return "NEG";
+                return "~";
             case SQUARE:
                 return "²";
             case SQRT:
-                return "SQRT";
+                return "√";
         }
         throw new IllegalArgumentException(op.name());
     }

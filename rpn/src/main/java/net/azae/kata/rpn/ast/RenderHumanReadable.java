@@ -10,6 +10,10 @@ public class RenderHumanReadable implements NodeVisitor {
             .addOperator("+", "-")
             .raisePriority()
             .addOperator("*", "/")
+            .raisePriority()
+            .addOperator("~")
+            .raisePriority()
+            .addOperator("√", "²")
             .get();
 
     private final StringBuilder builder = new StringBuilder();
@@ -40,25 +44,16 @@ public class RenderHumanReadable implements NodeVisitor {
 
     public void visitUnaryOperator(final UnaryOperatorNode ast) {
         final String symbol = UnaryOperators.render(ast.getOperator());
-        if (POSTFIX_OPERATORS.contains(symbol)) {
-            if (ast.getChild() instanceof BinaryOperatorNode) {
-                processUnaryOperatorChild(ast);
-            } else {
-                ast.getChild().accept(this);
-            }
+        final boolean isPostfix = POSTFIX_OPERATORS.contains(symbol);
+        builder.append(enterOperatorPriority(symbol));
+        if (!isPostfix) {
             builder.append(symbol);
-        } else {
-            builder.append(symbol);
-            processUnaryOperatorChild(ast);
         }
-    }
-
-    private void processUnaryOperatorChild(final UnaryOperatorNode ast) {
-        builder.append('(');
-        enterForceNoParenthesis();
         ast.getChild().accept(this);
-        exitForceNoParenthesis();
-        builder.append(')');
+        if (isPostfix) {
+            builder.append(symbol);
+        }
+        builder.append(exitOperatorPriority(symbol));
     }
 
     public String enterOperatorPriority(final String operation) {

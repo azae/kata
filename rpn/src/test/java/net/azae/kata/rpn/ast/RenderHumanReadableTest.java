@@ -40,7 +40,7 @@ public class RenderHumanReadableTest {
 
     @Test
     public void should_render_sqrt() {
-        assertEquals(render(sqrt(literal(4))), "SQRT(4)");
+        assertEquals(render(sqrt(literal(4))), "√4");
     }
 
     @Test
@@ -55,12 +55,12 @@ public class RenderHumanReadableTest {
 
     @Test
     public void should_render_square_on_unary_expression() {
-        assertEquals(render(square(neg(literal(4)))), "NEG(4)²");
+        assertEquals(render(square(neg(literal(4)))), "(~4)²");
     }
 
     @Test
     public void should_render_neg() {
-        assertEquals(render(neg(literal(4))), "NEG(4)");
+        assertEquals(render(neg(literal(4))), "~4");
     }
 
     @Test
@@ -75,6 +75,6 @@ public class RenderHumanReadableTest {
 
     @Test
     public void should_render_ast_sqrt_should_not_have_double_parenthesis() {
-        assertEquals(render(mul(sqrt(add(literal(4), literal(3))), literal(5))), "SQRT(4 + 3) * 5");
+        assertEquals(render(mul(sqrt(add(literal(4), literal(3))), literal(5))), "√(4 + 3) * 5");
     }
 }

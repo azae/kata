@@ -33,7 +33,7 @@ public class RpnParserTest {
 
     @Test
     public void should_parse_sqrt() {
-        assertEquals(parse("4 SQRT"), "4 SQRT");
+        assertEquals(parse("4 √"), "4 √");
     }
 
     @Test
@@ -43,7 +43,7 @@ public class RpnParserTest {
 
     @Test
     public void should_parse_neg() {
-        assertEquals(parse("4 NEG"), "4 NEG");
+        assertEquals(parse("4 ~"), "4 ~");
     }
 
     @Test

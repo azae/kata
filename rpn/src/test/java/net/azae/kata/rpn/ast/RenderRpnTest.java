@@ -35,7 +35,7 @@ public class RenderRpnTest {
 
     @Test
     public void should_render_sqrt() {
-        assertEquals(render(sqrt(literal(4))), "4 SQRT");
+        assertEquals(render(sqrt(literal(4))), "4 √");
     }
 
     @Test
@@ -45,7 +45,7 @@ public class RenderRpnTest {
 
     @Test
     public void should_render_neg() {
-        assertEquals(render(neg(literal(4))), "4 NEG");
+        assertEquals(render(neg(literal(4))), "4 ~");
     }
 
     @Test

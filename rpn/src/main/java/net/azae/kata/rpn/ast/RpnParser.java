@@ -22,8 +22,8 @@ public class RpnParser implements Parser {
         MUL("*"::equals, stack -> stack.push(binary(stack, NodeFactory::mul))),
         DIV("/"::equals, stack -> stack.push(binary(stack, NodeFactory::div))),
         SQUARE("²"::equals, stack -> stack.push(square(stack.pop()))),
-        NEG("NEG"::equals, stack -> stack.push(neg(stack.pop()))),
-        SQRT("SQRT"::equals, stack -> stack.push(sqrt(stack.pop())));
+        NEG("~"::equals, stack -> stack.push(neg(stack.pop()))),
+        SQRT("√"::equals, stack -> stack.push(sqrt(stack.pop())));
 
         final Predicate<String> pattern;
         final Consumer<Stack<Node>> operation;

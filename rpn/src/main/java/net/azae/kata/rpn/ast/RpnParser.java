@@ -1,11 +1,11 @@
 package net.azae.kata.rpn.ast;
 
-import com.google.common.primitives.Doubles;
-
 import java.util.Stack;
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
 import java.util.function.Predicate;
+
+import static net.azae.kata.rpn.ast.NodeFactory.sqrt;
 
 public class RpnParser implements Parser {
     public Node parse(final String expression) {
@@ -20,7 +20,8 @@ public class RpnParser implements Parser {
         ADD("+"::equals, (atom, stack) -> stack.push(binary(stack, NodeFactory::add))),
         SUB("-"::equals, (atom, stack) -> stack.push(binary(stack, NodeFactory::sub))),
         MUL("*"::equals, (atom, stack) -> stack.push(binary(stack, NodeFactory::mul))),
-        DIV("/"::equals, (atom, stack) -> stack.push(binary(stack, NodeFactory::div)));
+        DIV("/"::equals, (atom, stack) -> stack.push(binary(stack, NodeFactory::div))),
+        SQRT("SQRT"::equals, (atom, stack) -> stack.push(sqrt(stack.pop())));
 
         final Predicate<String> pattern;
         final BiConsumer<String, Stack<Node>> operation;

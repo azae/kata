@@ -27,8 +27,13 @@ public class RpnParserTest {
     }
 
     @Test
-    public void should_parse_divistion() {
+    public void should_parse_division() {
         assertEquals(parse("4 3 /"), "4 3 /");
+    }
+
+    @Test
+    public void should_parse_sqrt() {
+        assertEquals(parse("4 SQRT"), "4 SQRT");
     }
 
     @Test

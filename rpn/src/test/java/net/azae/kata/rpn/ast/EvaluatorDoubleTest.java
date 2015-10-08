@@ -40,6 +40,11 @@ public class EvaluatorDoubleTest {
     }
 
     @Test
+    public void should_evaluate_square() {
+        assertEquals(evaluate(square(literal(4))), 16, DELTA);
+    }
+
+    @Test
     public void should_render_neg() {
         assertEquals(evaluate(neg(literal(4))), -4, DELTA);
     }

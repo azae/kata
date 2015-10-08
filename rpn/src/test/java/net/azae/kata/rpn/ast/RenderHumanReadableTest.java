@@ -44,6 +44,21 @@ public class RenderHumanReadableTest {
     }
 
     @Test
+    public void should_render_square_on_literal() {
+        assertEquals(render(square(literal(4))), "4²");
+    }
+
+    @Test
+    public void should_render_square_on_binary_expression() {
+        assertEquals(render(square(add(literal(4), literal(2)))), "(4 + 2)²");
+    }
+
+    @Test
+    public void should_render_square_on_unary_expression() {
+        assertEquals(render(square(neg(literal(4)))), "NEG(4)²");
+    }
+
+    @Test
     public void should_render_neg() {
         assertEquals(render(neg(literal(4))), "NEG(4)");
     }

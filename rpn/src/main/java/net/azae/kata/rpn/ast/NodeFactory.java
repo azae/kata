@@ -29,6 +29,10 @@ public class NodeFactory {
         return unary(UnaryOperators.NEG, child);
     }
 
+    public static Node square(final Node child) {
+        return unary(UnaryOperators.SQUARE, child);
+    }
+
     public static Node sqrt(final Node child) {
         return unary(UnaryOperators.SQRT, child);
     }

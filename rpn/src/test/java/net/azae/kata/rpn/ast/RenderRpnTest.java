@@ -39,6 +39,11 @@ public class RenderRpnTest {
     }
 
     @Test
+    public void should_render_square() {
+        assertEquals(render(square(literal(4))), "4 ²");
+    }
+
+    @Test
     public void should_render_neg() {
         assertEquals(render(neg(literal(4))), "4 NEG");
     }

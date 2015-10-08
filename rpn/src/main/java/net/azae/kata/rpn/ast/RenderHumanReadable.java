@@ -1,11 +1,11 @@
 package net.azae.kata.rpn.ast;
 
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Stack;
+import com.google.common.collect.Sets;
+
+import java.util.*;
 
 public class RenderHumanReadable implements NodeVisitor {
+    private static final Collection<String> POSTFIX_OPERATORS = Sets.newHashSet("²");
     private static final Map<String, Integer> OPERATOR_PRIORITY = new PriorityDefinition()
             .addOperator("+", "-")
             .raisePriority()
@@ -39,13 +39,27 @@ public class RenderHumanReadable implements NodeVisitor {
     }
 
     public void visitUnaryOperator(final UnaryOperatorNode ast) {
-        builder.append(UnaryOperators.render(ast.getOperator())).append('(');
+        final String symbol = UnaryOperators.render(ast.getOperator());
+        if (POSTFIX_OPERATORS.contains(symbol)) {
+            if (ast.getChild() instanceof BinaryOperatorNode) {
+                processUnaryOperatorChild(ast);
+            } else {
+                ast.getChild().accept(this);
+            }
+            builder.append(symbol);
+        } else {
+            builder.append(symbol);
+            processUnaryOperatorChild(ast);
+        }
+    }
+
+    private void processUnaryOperatorChild(final UnaryOperatorNode ast) {
+        builder.append('(');
         enterForceNoParenthesis();
         ast.getChild().accept(this);
         exitForceNoParenthesis();
         builder.append(')');
     }
-
 
     public String enterOperatorPriority(final String operation) {
         final int priority = getOperatorPriority(operation);

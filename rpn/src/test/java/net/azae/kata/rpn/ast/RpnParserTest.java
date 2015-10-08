@@ -37,6 +37,11 @@ public class RpnParserTest {
     }
 
     @Test
+    public void should_parse_square() {
+        assertEquals(parse("4 ²"), "4 ²");
+    }
+
+    @Test
     public void should_parse_neg() {
         assertEquals(parse("4 NEG"), "4 NEG");
     }

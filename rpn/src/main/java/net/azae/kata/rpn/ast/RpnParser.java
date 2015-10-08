@@ -1,10 +1,11 @@
 package net.azae.kata.rpn.ast;
 
 import java.util.Stack;
-import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+import static net.azae.kata.rpn.ast.NodeFactory.literal;
 import static net.azae.kata.rpn.ast.NodeFactory.sqrt;
 
 public class RpnParser implements Parser {
@@ -17,16 +18,16 @@ public class RpnParser implements Parser {
     }
 
     private enum StackActions {
-        ADD("+"::equals, (atom, stack) -> stack.push(binary(stack, NodeFactory::add))),
-        SUB("-"::equals, (atom, stack) -> stack.push(binary(stack, NodeFactory::sub))),
-        MUL("*"::equals, (atom, stack) -> stack.push(binary(stack, NodeFactory::mul))),
-        DIV("/"::equals, (atom, stack) -> stack.push(binary(stack, NodeFactory::div))),
-        SQRT("SQRT"::equals, (atom, stack) -> stack.push(sqrt(stack.pop())));
+        ADD("+"::equals, stack -> stack.push(binary(stack, NodeFactory::add))),
+        SUB("-"::equals, stack -> stack.push(binary(stack, NodeFactory::sub))),
+        MUL("*"::equals, stack -> stack.push(binary(stack, NodeFactory::mul))),
+        DIV("/"::equals, stack -> stack.push(binary(stack, NodeFactory::div))),
+        SQRT("SQRT"::equals, stack -> stack.push(sqrt(stack.pop())));
 
         final Predicate<String> pattern;
-        final BiConsumer<String, Stack<Node>> operation;
+        final Consumer<Stack<Node>> operation;
 
-        StackActions(final Predicate<String> pattern, final BiConsumer<String, Stack<Node>> operation) {
+        StackActions(final Predicate<String> pattern, final Consumer<Stack<Node>> operation) {
             this.pattern = pattern;
             this.operation = operation;
         }
@@ -34,11 +35,11 @@ public class RpnParser implements Parser {
         static void process(final String atom, final Stack<Node> stack) {
             for (final StackActions action : values()) {
                 if (action.pattern.test(atom)) {
-                    action.operation.accept(atom, stack);
+                    action.operation.accept(stack);
                     return;
                 }
             }
-            stack.push(NodeFactory.literal(atom));
+            stack.push(literal(atom));
         }
 
         private static Node binary(final Stack<Node> stack, final BinaryOperator<Node> function) {

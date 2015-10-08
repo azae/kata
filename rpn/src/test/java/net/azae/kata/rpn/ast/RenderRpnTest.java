@@ -19,7 +19,7 @@ public class RenderRpnTest {
     }
 
     @Test
-    public void should_render_substraction() {
+    public void should_render_subtraction() {
         assertEquals(render(sub(literal(4), literal(3))), "4 3 -");
     }
 

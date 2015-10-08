@@ -40,7 +40,7 @@ public class EvaluatorDoubleTest {
     }
 
     @Test
-    public void should_evaluate_complexe_expression() {
+    public void should_evaluate_complex_expression() {
         assertEquals(evaluate(mul(add(literal(5), sqrt(literal(4))), sub(literal(5), literal(3)))), 14, DELTA);
     }
 }

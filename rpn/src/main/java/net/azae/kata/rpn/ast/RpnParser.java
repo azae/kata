@@ -5,8 +5,7 @@ import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-import static net.azae.kata.rpn.ast.NodeFactory.literal;
-import static net.azae.kata.rpn.ast.NodeFactory.sqrt;
+import static net.azae.kata.rpn.ast.NodeFactory.*;
 
 public class RpnParser implements Parser {
     public Node parse(final String expression) {
@@ -22,6 +21,7 @@ public class RpnParser implements Parser {
         SUB("-"::equals, stack -> stack.push(binary(stack, NodeFactory::sub))),
         MUL("*"::equals, stack -> stack.push(binary(stack, NodeFactory::mul))),
         DIV("/"::equals, stack -> stack.push(binary(stack, NodeFactory::div))),
+        NEG("NEG"::equals, stack -> stack.push(neg(stack.pop()))),
         SQRT("SQRT"::equals, stack -> stack.push(sqrt(stack.pop())));
 
         final Predicate<String> pattern;

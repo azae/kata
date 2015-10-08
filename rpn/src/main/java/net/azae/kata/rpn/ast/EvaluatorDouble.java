@@ -18,6 +18,7 @@ public class EvaluatorDouble implements NodeVisitor {
 
     private static final Map<UnaryOperators, Consumer<Stack<Double>>> UNARY_OPERATORS = new HashMap<UnaryOperators, Consumer<Stack<Double>>>() {
         {
+            put(UnaryOperators.NEG, s -> s.push(-s.pop()));
             put(UnaryOperators.SQRT, s -> s.push(Math.sqrt(s.pop())));
         }
     };

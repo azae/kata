@@ -39,6 +39,11 @@ public class RenderRpnTest {
     }
 
     @Test
+    public void should_render_neg() {
+        assertEquals(render(neg(literal(4))), "4 NEG");
+    }
+
+    @Test
     public void should_render_complex_ast() {
         assertEquals(render(add(sub(literal(4), literal(3)), literal(1))), "4 3 - 1 +");
     }

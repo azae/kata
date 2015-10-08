@@ -37,6 +37,11 @@ public class RpnParserTest {
     }
 
     @Test
+    public void should_parse_neg() {
+        assertEquals(parse("4 NEG"), "4 NEG");
+    }
+
+    @Test
     public void should_parse_complex_expression_with_operators_at_the_end() {
         assertEquals(parse("1 2 3 4 5 + - * /"), "1 2 3 4 5 + - * /");
     }

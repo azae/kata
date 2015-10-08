@@ -44,6 +44,11 @@ public class RenderHumanReadableTest {
     }
 
     @Test
+    public void should_render_neg() {
+        assertEquals(render(neg(literal(4))), "NEG(4)");
+    }
+
+    @Test
     public void should_render_ast_when_parenthesis_not_needed() {
         assertEquals(render(add(mul(literal(4), literal(3)), literal(1))), "4 * 3 + 1");
     }

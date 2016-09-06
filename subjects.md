@@ -334,4 +334,7 @@ For example: print-diamond "C" prints
     C   C
      B B
       A
+      
+      
+# huit reines
 
